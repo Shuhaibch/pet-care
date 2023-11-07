@@ -1,29 +1,33 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/config/config.dart';
+import 'package:pet_care/screens/chat/widget/widgets.dart';
 import 'package:pet_care/widgets/widget.dart';
 
 class ChatScreen extends StatelessWidget {
   final String imageUrl =
       'https://imgs.search.brave.com/cb4ekmNNh1Ynv3bIRlnc7-z-HPHvqXwU3m4plVS50qc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cmQuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIxLzAzL0dl/dHR5SW1hZ2VzLTEz/NTE1NzgyOC5qcGc';
 
-  // static const String routeName = '/chat';
-  // static Route route() {
-  //   return MaterialPageRoute(
-  //     settings: const RouteSettings(name: routeName),
-  //     builder: (_) => const ChatScreen(),
-  //   );
-  // }
+  static const String routeName = '/chat';
+  static Route route() {
+    //board okke upeych show erkknu on 
+    return MaterialPageRoute(
+      settings: const RouteSettings(name: routeName),
+      builder: (_) => const ChatScreen(),
+    );
+  }
 
   const ChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    //neech podaaa
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: CustomAppBar(
+        //Nk bore adichund appo nganokke ndavym
         height: height,
         title: 'Chats',
       ),
@@ -54,7 +58,7 @@ class ChatScreen extends StatelessWidget {
               child: ListView.separated(
                 itemBuilder: (context, index) {
                   return Container(
-                    width: width,
+                    width: width,//korch flutter arinjuchtt oru kaaryulla
                     height: height * .105,
                     decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(.25),
@@ -62,40 +66,71 @@ class ChatScreen extends StatelessWidget {
                         Radius.elliptical(20, 20),
                       ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: imageUrl,
-                            imageBuilder: (context, imageProvider) =>
-                                CircleAvatar(
-                              child: Image.network(imageUrl),
+
+                    //* Single Row
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/single');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 15,
+                        ),
+                        child: Row(
+                          children: [
+                            //* Profile Image
+                            ProfilePicture(
+                              width: width * .17,
+                              height: height * .08,
+                              imageUrl: imageUrl,
                             ),
-                            placeholder: (context, url) => const SizedBox(
-                              height: 2.0,
-                              width: 2.0,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: Color.fromARGB(255, 100, 6, 6),
-                                ),
+                            kwidth20,
+
+                            //* Name And Chat
+                            SizedBox(
+                              width: width * .45,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Goat Is goat",
+                                    //awwff goat is goat, onn poyeda avdnn
+                                    style: Theme.of(context)
+                                    //prrrrrrrrrrrr patti show
+                                        .textTheme
+                                        .displayMedium,
+                                  ),
+                                  Text(
+                                    "this is the last message done by",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+                                ],
                               ),
                             ),
-                            errorWidget: (context, url, error) => const Icon(
-                              Icons.error,
-                              size: 50,
-                            ),
-                          ),
-                        ],
+                            const Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                '02/03/2001',
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   );
                 },
                 separatorBuilder: (context, index) => Divider(
-                  height: height * .003,
+                  height: height * .004,
                   // color: Colors.grey[700],
                 ),
-                itemCount: 10,
+                itemCount: 20,
               ),
             )
           ],
