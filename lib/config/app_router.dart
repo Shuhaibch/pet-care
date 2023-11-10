@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:pet_care/screens/chat/widget/single_chat_screen.dart';
+import 'package:pet_care/screens/report/widgets/screens/police_screen.dart';
 import 'package:pet_care/screens/screen.dart';
 
 class AppRoute {
@@ -22,6 +23,8 @@ class AppRoute {
         return ReportScreen.route();
       case SingleChatScreen.routeName:
         return SingleChatScreen.route();
+      case PoliceScreen.routeName:
+        return PoliceScreen.route();
       default:
         return _errorRoute();
     }

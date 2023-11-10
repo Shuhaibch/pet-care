@@ -9,12 +9,16 @@ class SingleChatAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final double height;
   final String title;
-  const SingleChatAppBar({
+  SingleChatAppBar({
     super.key,
     required this.height,
     required this.title,
   });
-
+  final List<String> catagories = [
+    'Contact',
+    'Report',
+    'Block',
+  ];
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -38,15 +42,20 @@ class SingleChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
+        PopupMenuButton(
+          icon: const Icon(
             Icons.more_vert,
-            color: Theme.of(context).iconTheme.color,
-            size: Theme.of(context).iconTheme.size,
-            weight: Theme.of(context).iconTheme.weight,
+            color: Colors.white,
           ),
-        ),
+          color: Colors.grey[900],
+          itemBuilder: (context) => catagories
+              .map((e) => PopupMenuItem(
+                      child: Text(
+                    e,
+                    style: Theme.of(context).textTheme.displaySmall,
+                  )))
+              .toList(),
+        )
       ],
     );
   }

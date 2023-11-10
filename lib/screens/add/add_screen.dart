@@ -3,7 +3,7 @@ import 'package:pet_care/config/config.dart';
 import 'package:pet_care/screens/add/widget/bottom_sheet.dart';
 
 ValueNotifier<String> selectedCatagaries = ValueNotifier("Select Catagories");
-ValueNotifier<bool> isUploadImage = ValueNotifier(false);
+ValueNotifier<bool> isUploadImage = ValueNotifier(true);
 
 class AddScreen extends StatelessWidget {
   static const String routeName = '/add';
@@ -67,7 +67,7 @@ class AddScreen extends StatelessWidget {
                           );
                         }).toList(),
                         onChanged: (_) {
-                          selectedCatagaries;//Categaries aathre ayyyyy CategOries aada pothe
+                          selectedCatagaries; //Categaries aathre ayyyyy CategOries aada pothe
                         },
                       );
                     }),
@@ -94,7 +94,7 @@ class AddScreen extends StatelessWidget {
                                 20,
                               ),
                             ),
-                               // CircularExterminator
+                            // CircularExterminator
                           ),
                         ),
                         maxLines: 8,
@@ -137,24 +137,39 @@ class AddScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Container(
-                            width: width * .35,
-                            height: height * .20,
-                            decoration: BoxDecoration(
-                              //Ivde vann kalichanda, ith area verenu
-                              color: Colors.grey[900],
-                              borderRadius: const BorderRadius.all(
-                                Radius.elliptical(
-                                  20,
-                                  20,
+                          InkWell(
+                            onTap: () {
+                              showBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                builder: (context) {
+                                  return CustomBottomSheet(
+                                    height: height,
+                                    width: width,
+                                    isVedio: true,
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              width: width * .35,
+                              height: height * .20,
+                              decoration: BoxDecoration(
+                                //Ivde vann kalichanda, ith area verenu
+                                color: Colors.grey[900],
+                                borderRadius: const BorderRadius.all(
+                                  Radius.elliptical(
+                                    20,
+                                    20,
+                                  ),
                                 ),
                               ),
-                            ),
-                            // ForHalloween
-                            child: const Center(
-                              child: Icon(
-                                Icons.video_library,
-                                size: 40,
+                              // ForHalloween
+                              child: const Center(
+                                child: Icon(
+                                  Icons.video_library,
+                                  size: 40,
+                                ),
                               ),
                             ),
                           )
