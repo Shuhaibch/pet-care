@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
           child: ValueListenableBuilder(
         valueListenable: indexChangeNotifier,
         builder: (context, index, _) {
-          return _pages[index];
+          return _pages[index]; 
         },
       )),
       bottomNavigationBar: const CustomNavBar(),

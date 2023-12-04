@@ -15,19 +15,19 @@ class HomeScreen extends StatelessWidget {
 
   final String imageUrl =
       'https://imgs.search.brave.com/cb4ekmNNh1Ynv3bIRlnc7-z-HPHvqXwU3m4plVS50qc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cmQuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIxLzAzL0dl/dHR5SW1hZ2VzLTEz/NTE1NzgyOC5qcGc';
+
   const HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-
       //* App Bar
       appBar: CustomAppBar(
         height: height,
-        title: 'Feeds',
+        title: 'Feed',
       ),
-      
+
       body: ListView.separated(
         padding: const EdgeInsets.all(10),
         itemCount: 5,
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
         },
         itemBuilder: (context, index) {
           return Container(
-            padding: const EdgeInsets.all(20),
+            padding: const  EdgeInsets.all(20),
             height: height * .43,
             decoration: BoxDecoration(
               color: Colors.grey.withOpacity(.25),

@@ -9,7 +9,7 @@ class ReportScreen extends StatelessWidget {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
       builder: (_) => const ReportScreen(),
-    );
+    ); 
   }
 
   const ReportScreen({super.key});

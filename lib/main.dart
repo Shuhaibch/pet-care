@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_care/config/app_router.dart';
 import 'package:pet_care/config/theme.dart';
 import 'package:pet_care/firebase_options.dart';
+import 'package:pet_care/screens/auth/sign_up.dart';
 import 'package:pet_care/screens/home/home_screen.dart';
 import 'package:pet_care/screens/main_screen.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Pet Care System',
       navigatorKey: navigatorKey,
-      home: MainScreen(),
+      home: SignUpScreen(),
     );
   }
 }
