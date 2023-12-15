@@ -34,6 +34,7 @@ class CustTextFeild extends StatelessWidget {
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
             borderSide: BorderSide(color: Colors.white),
+
           ),
           errorBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),

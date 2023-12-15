@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_care/config/width.dart';
+import 'package:pet_care/screens/auth/log_in.dart';
 import 'package:pet_care/screens/main_screen.dart';
 
 import '../../widgets/cust_text_feild.dart';
@@ -10,12 +11,17 @@ class SignUpScreen extends StatelessWidget {
   final TextEditingController nameCtrl = TextEditingController();
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController passWordCtrl = TextEditingController();
+  final TextEditingController confirmPassWordCtrl = TextEditingController();
   final TextEditingController addressCtrl = TextEditingController();
   final TextEditingController phoneCtrl = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      // bottomSheet: Column(
+      //   children: [Text('data')],
+      // ),
+
       // resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
@@ -67,12 +73,12 @@ class SignUpScreen extends StatelessWidget {
                           hintText: "User Name",
                         ),
                         CustTextFeild(
-                          controller: nameCtrl,
+                          controller: emailCtrl,
                           cusIcon: Icons.mail_outline_outlined,
                           hintText: "Email",
                         ),
                         CustTextFeild(
-                          controller: nameCtrl,
+                          controller: passWordCtrl,
                           cusIcon: Icons.key,
                           hintText: "PassWord",
                           suffIcon: const Icon(
@@ -80,7 +86,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         ),
                         CustTextFeild(
-                          controller: nameCtrl,
+                          controller:confirmPassWordCtrl ,
                           cusIcon: Icons.key,
                           hintText: "Confirm PassWord",
                           suffIcon: const Icon(Icons.remove_red_eye_outlined),
@@ -95,10 +101,11 @@ class SignUpScreen extends StatelessWidget {
                               SizedBox(
                                 child: InkWell(
                                   onTap: () {
-                                    navigatorKey.currentState!
-                                        .pushReplacement(MaterialPageRoute(
-                                      builder: (context) => MainScreen(),
-                                    ));
+                                    navigatorKey.currentState!.pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) => MainScreen(),
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     width: size.width * .9,
@@ -123,6 +130,8 @@ class SignUpScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
+
+                              //* Login Button
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: Row(
@@ -135,16 +144,13 @@ class SignUpScreen extends StatelessWidget {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        showBottomSheet(
-                                          elevation: 2,
-                                          backgroundColor: Colors.transparent,
+                                        showModalBottomSheet(
                                           context: context,
+                                          constraints: const BoxConstraints(
+                                              minHeight: 100, maxHeight: 350),
                                           builder: (context) {
-                                            return Container(
-                                              height: size.height * .5,
-                                              // width: size.width * .5,
-                                              color: Colors.amber,
-                                            );
+                                            return LoginBottomSheet(
+                                                size: size,);
                                           },
                                         );
                                       },
