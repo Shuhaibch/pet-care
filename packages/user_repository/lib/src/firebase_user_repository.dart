@@ -15,8 +15,7 @@ class FirebaseUserRepository implements UserRepository {
   @override
   Future<MyUser> signUp(MyUser myUser, String password) async {
     try {
-      final  user =
-          await _firebaseAuth.createUserWithEmailAndPassword(
+      final user = await _firebaseAuth.createUserWithEmailAndPassword(
         email: myUser.email,
         password: password,
       );
@@ -81,7 +80,7 @@ class FirebaseUserRepository implements UserRepository {
   @override
   Future<void> setUserData(MyUser user) async {
     try {
-      userCollection.doc(user.id).set(user.toEntity().toDocument());
+      await userCollection.doc(user.id).set(user.toEntity().toDocument());
     } catch (e) {
       log(e.toString());
       rethrow;

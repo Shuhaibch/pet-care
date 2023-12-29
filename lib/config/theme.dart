@@ -5,6 +5,7 @@ ThemeData them() {
   return ThemeData(
       scaffoldBackgroundColor: Colors.black,
       primaryColorDark: Colors.black,
+      primaryIconTheme: const IconThemeData(color: Colors.white, fill: 1),
       iconTheme: const IconThemeData(
         color: Colors.white,
         size: 28,
