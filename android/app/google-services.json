@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "452006117198",
+    "firebase_url": "https://pet-care-project-bd56e-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "pet-care-project-bd56e",
     "storage_bucket": "pet-care-project-bd56e.appspot.com"
   },
@@ -12,7 +13,12 @@
           "package_name": "com.example.pet_care"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "452006117198-rqj7om30dqt99uhf0d5dblib99etcu1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCyNCrdvH1Czw4j8ySj4UmE0g2avHMW7rM"
@@ -20,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452006117198-rqj7om30dqt99uhf0d5dblib99etcu1l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

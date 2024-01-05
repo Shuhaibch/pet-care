@@ -1,18 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:post_repository/src/entity/entity.dart';
 
 class Post extends Equatable {
-  final String postId;
+  final String? postId;
   final String userId;
-  final String postPic;
-  final String caption;
-  final DateTime postDate;
+  final String? postPic;
+  final List? like;
+  final String? caption;
+  final Timestamp postDate;
 
   const Post({
-    required this.postId,
+    this.postId,
     required this.userId,
-    required this.postPic,
-    required this.caption,
+    this.postPic,
+    this.like,
+    this.caption,
     required this.postDate,
   });
 
@@ -21,8 +24,9 @@ class Post extends Equatable {
     postId: '',
     userId: '',
     postPic: '',
+    like: List.empty(),
     caption: '',
-    postDate: DateTime.now(),
+    postDate: Timestamp.now(),
   );
 
   /// Copy Post Methord
@@ -30,13 +34,15 @@ class Post extends Equatable {
     String? postId,
     String? userId,
     String? postPic,
+    List? like,
     String? caption,
-    DateTime? postDate,
+    Timestamp? postDate,
   }) {
     return Post(
       postId: postId ?? this.postId,
       userId: userId ?? this.userId,
       postPic: postPic ?? this.postPic,
+      like: like ?? this.like,
       caption: caption ?? this.caption,
       postDate: postDate ?? this.postDate,
     );
@@ -54,6 +60,7 @@ class Post extends Equatable {
       postId: postId,
       userId: userId,
       postPic: postPic,
+      like:like,
       caption: caption,
       postDate: postDate,
     );
@@ -65,9 +72,18 @@ class Post extends Equatable {
       postId: entity.postId,
       userId: entity.userId,
       postPic: entity.postPic,
+      like: entity.like,
       caption: entity.caption,
       postDate: entity.postDate,
     );
+  }
+
+  addLike({required String userId}) {
+    like!.add(userId);
+    
+  }
+    removeLike({required String userId}) {
+    like!.remove(userId);
   }
 
   @override

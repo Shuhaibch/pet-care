@@ -3,10 +3,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:pet_care/screens/chat/widget/single_chat_screen.dart';
-import 'package:pet_care/screens/report/widgets/screens/police_screen.dart';
-import 'package:pet_care/screens/screen.dart';
 
+import '../presentation/user/screens/chat/widget/widgets.dart';
+import '../presentation/user/screens/screen.dart';
 class AppRoute {
   static Route onGenerateRoute(RouteSettings settings) {
     log('This Route is ${settings.name}');
@@ -23,8 +22,8 @@ class AppRoute {
         return ReportScreen.route();
       case SingleChatScreen.routeName:
         return SingleChatScreen.route();
-      case PoliceScreen.routeName:
-        return PoliceScreen.route();
+      // case PoliceScreen.routeName:
+      //   return PoliceScreen.route();
       default:
         return _errorRoute();
     }

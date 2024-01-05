@@ -1,17 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class PostEntity extends Equatable {
-  final String postId;
+  final String? postId;
   final String userId;
-  final String postPic;
-  final String caption;
-  final DateTime postDate;
+  final String? postPic;
+  final List? like;
+  final String? caption;
+  final Timestamp postDate;
 
   const PostEntity({
-    required this.postId,
+    this.postId,
     required this.userId,
-    required this.postPic,
-    required this.caption,
+    this.postPic,
+    this.like,
+    this.caption,
     required this.postDate,
   });
 
@@ -21,6 +24,7 @@ class PostEntity extends Equatable {
       'postId': postId,
       'userId': userId,
       'postPic': postPic,
+      'like': like,
       'caption': caption,
       'postDate': postDate,
     };
@@ -32,6 +36,7 @@ class PostEntity extends Equatable {
       postId: doc['postId'],
       userId: doc['userId'],
       postPic: doc['postPic'],
+      like: doc['like'],
       caption: doc['caption'],
       postDate: doc['postDate'],
     );
@@ -44,6 +49,7 @@ class PostEntity extends Equatable {
         postId:$postId,
         userId: $userId,
         postPic: $postPic,
+        like: $like,
         caption: $caption,
         postDate: $postDate)''';
   }
@@ -53,6 +59,7 @@ class PostEntity extends Equatable {
         postId,
         userId,
         postPic,
+        like,
         caption,
         postDate,
       ];

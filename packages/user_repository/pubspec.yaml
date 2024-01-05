@@ -16,7 +16,8 @@ dependencies:
   firebase_storage: ^11.4.0
   firebase_core: ^2.19.0
   cloud_firestore: ^4.13.6
-
+  google_sign_in: ^6.1.6
+  email_validator: ^2.1.17
 dev_dependencies:
   flutter_test:
     sdk: flutter

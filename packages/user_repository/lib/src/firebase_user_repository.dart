@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:user_repository/user_repository.dart';
 
 class FirebaseUserRepository implements UserRepository {
@@ -56,7 +58,7 @@ class FirebaseUserRepository implements UserRepository {
     try {
       return userCollection.doc(userId).get().then(
             (value) => MyUser.fromEntity(
-              MyUserEntity.formDocument(
+              MyUserEntity.fromDocument(
                 value.data()!,
               ),
             ),
@@ -90,20 +92,44 @@ class FirebaseUserRepository implements UserRepository {
   @override
   Future<List<MyUser>> getAllUser() async {
     try {
-      allUsers = [];
-      QuerySnapshot userSnapshot = await userCollection.get();
-      userSnapshot.docs.map(
-        (doc) => allUsers.add(
-          MyUser(
-            id: doc['id'],
-            name: doc['name'],
-            address: doc['address'],
-            email: doc['email'],
-            phone: doc['phone'],
-          ),
-        ),
+      // allUsers = [];
+      // QuerySnapshot userSnapshot = await userCollection.get();
+      // userSnapshot.docs.map(
+      //   (doc) => allUsers.add(
+      //     MyUser(
+      //       id: doc['id'],
+      //       name: doc['name'],
+      //       address: doc['address'],
+      //       email: doc['email'],
+      //       phone: doc['phone'],
+      //     ),
+      //   ),
+      // );
+      // return allUsers;
+
+      return await userCollection.get().then((value) => value.docs
+          .map((e) => MyUser.fromEntity(MyUserEntity.fromDocument(e.data())))
+          .toList());
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> signUpWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
       );
-      return allUsers;
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
       log(e.toString());
       rethrow;

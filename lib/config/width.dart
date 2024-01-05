@@ -9,6 +9,7 @@ SizedBox kwidth50 = const SizedBox(width: 50);
 
 SizedBox kheight5 = const SizedBox(height: 5);
 SizedBox kheight10 = const SizedBox(height: 10);
+SizedBox kheight15 = const SizedBox(height: 15);
 SizedBox kheight20 = const SizedBox(height: 20);
 SizedBox kheight30 = const SizedBox(height: 30);
 SizedBox kheight40 = const SizedBox(height: 40);

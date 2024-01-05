@@ -57,6 +57,7 @@ class DefaultFirebaseOptions {
     appId: '1:452006117198:android:15600fa72ede4df6a5281f',
     messagingSenderId: '452006117198',
     projectId: 'pet-care-project-bd56e',
+    databaseURL: 'https://pet-care-project-bd56e-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'pet-care-project-bd56e.appspot.com',
   );
 }
