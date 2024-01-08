@@ -23,9 +23,9 @@ class AuthenticationBloc
       add(AuthenticationUserChangedEvent(user));
     });
 
-    on<AuthenticationUserChangedEvent>((event, emit) {
+    on<AuthenticationUserChangedEvent>((event, emit)async {
       if (event.user != null) {
-        emit(AuthenticationState.authenticated(event.user!));
+        emit(AuthenticationState.authenticated(event.user!, ));
       } else {
         emit(const AuthenticationState.unauthenticated());
       }

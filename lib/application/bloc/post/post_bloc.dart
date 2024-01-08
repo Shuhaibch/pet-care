@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:pet_care/models/allmodel.dart';
+import 'package:pet_care/models/all_post.dart';
 import 'package:post_repository/post_repository.dart';
 import 'package:user_repository/user_repository.dart';
 part 'post_event.dart';
@@ -70,14 +70,40 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(CreatePostFailed(errorMsg: e.toString()));
       }
     });
-
-    //* update post
-    on<UpdatePost>((event, emit) async {
+     //* Create Post
+    on<DeletePost>((event, emit) async {
+      emit(DeletePostLoading());
       try {
-        await _postRepo.updatePost(event.post);
+       allPostList = await _postRepo.getAllPost();
+        allUserList = await _userRepository.getAllUser();
+        // log(allUserList.toString());
+        postList = [];
+
+        for (var postElement in allPostList) {
+          for (var userElement in allUserList) {
+            if (postElement.userId == userElement.id) {
+              post = post.copyWith(
+                post: postElement,
+                user: userElement,
+              );
+              postList.add(post);
+            }
+          }
+        }
+        // log(postList.length.toString());
+        postList.sort(
+          (a, b) => b.post.postDate.compareTo(a.post.postDate),
+        );
+        // _postsController.add(allPostList);
+        // log(postList.toString());
+
+        emit(GetAllPostSuccess(allPost: postList));
       } catch (e) {
         log(e.toString());
+        emit(DeletePostFailed(errorMsg: e.toString()));
       }
     });
+
+   
   }
 }

@@ -340,7 +340,7 @@ class _AddScreenState extends State<AddScreen> {
                                 postId: DateTime.now()
                                     .millisecondsSinceEpoch
                                     .toString(),
-                                userId: user.uid,
+                                userId: user!.uid,
                                 postDate: Timestamp.now(),
                                 caption: postCtrl.text.isEmpty
                                     ? null

@@ -1,23 +1,26 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class ReportEntity extends Equatable {
   final String reportId;
-  final String userId;
-  final String reportPhoto;
-  final Timestamp date;
-  final String caption;
-  final GeoPoint location;
-  final String description;
+  final String? userId;
+  final String? reportPhoto;
+  final Timestamp? date;
+  final String? location;
+  final String? description;
+  final String catagory;
+  final String? status;
 
   const ReportEntity({
     required this.reportId,
     required this.userId,
     required this.reportPhoto,
     required this.date,
-    required this.caption,
     required this.location,
     required this.description,
+    required this.catagory,
+    this.status,
   });
 
   /// To The Firebase
@@ -27,22 +30,24 @@ class ReportEntity extends Equatable {
       'userId': userId,
       'reportPhoto': reportPhoto,
       'date': date,
-      'caption': caption,
       'location': location,
       'description': description,
+      'catagory':catagory,
+      'status': status,
     };
   }
 
   ///From the firebase
-  static ReportEntity formDocument(Map<String, dynamic> doc) {
+  static ReportEntity fromDocument(Map<String, dynamic> doc) {
     return ReportEntity(
       reportId: doc['reportId'],
       userId: doc['userId'],
       reportPhoto: doc['reportPhoto'],
       date: doc['date'],
-      caption: doc['caption'],
       location: doc['location'],
       description: doc['description'],
+      catagory:doc['catagory'],
+      status: doc['status'],
     );
   }
 
@@ -51,12 +56,13 @@ class ReportEntity extends Equatable {
   String toString() {
     return ''' ReportEntity(
       reportId: $reportId,
-      userId: $caption,
+      userId: $userId,
       reportPhoto:$reportPhoto,
       date: $date,
-      caption: $caption,
       location: $location,
       description: $description,
+      catagory:$catagory,
+      status: $status,
     )''';
   }
 
@@ -64,11 +70,11 @@ class ReportEntity extends Equatable {
   List<Object?> get props => [
         reportId,
         userId,
-        caption,
         reportPhoto,
         date,
-        caption,
         location,
-        description
+        description,
+        catagory,
+        status,
       ];
 }

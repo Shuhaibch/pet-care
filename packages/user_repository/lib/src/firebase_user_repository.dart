@@ -1,8 +1,10 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -56,6 +58,7 @@ class FirebaseUserRepository implements UserRepository {
   @override
   Future<MyUser> getUserData(String userId) {
     try {
+      log('message');
       return userCollection.doc(userId).get().then(
             (value) => MyUser.fromEntity(
               MyUserEntity.fromDocument(
@@ -76,7 +79,7 @@ class FirebaseUserRepository implements UserRepository {
 
   @override
   Future<void> resetPassword(String email) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: email);
+    // await _firebaseAuth.pas(email: email);
   }
 
   @override
@@ -92,21 +95,6 @@ class FirebaseUserRepository implements UserRepository {
   @override
   Future<List<MyUser>> getAllUser() async {
     try {
-      // allUsers = [];
-      // QuerySnapshot userSnapshot = await userCollection.get();
-      // userSnapshot.docs.map(
-      //   (doc) => allUsers.add(
-      //     MyUser(
-      //       id: doc['id'],
-      //       name: doc['name'],
-      //       address: doc['address'],
-      //       email: doc['email'],
-      //       phone: doc['phone'],
-      //     ),
-      //   ),
-      // );
-      // return allUsers;
-
       return await userCollection.get().then((value) => value.docs
           .map((e) => MyUser.fromEntity(MyUserEntity.fromDocument(e.data())))
           .toList());
@@ -130,6 +118,50 @@ class FirebaseUserRepository implements UserRepository {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  //* upload image
+  @override
+  Future<String> upLoadPicture(String file, String userId) async {
+    try {
+      File imageFile = File(file);
+      Reference fireBaseStoreRef =
+          FirebaseStorage.instance.ref().child('Profile/$userId');
+      await fireBaseStoreRef.putFile(
+          imageFile,
+          SettableMetadata(
+            contentType: "image/jpeg",
+          ));
+      String url = await fireBaseStoreRef.getDownloadURL();
+      url = url.toString();
+      return url;
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateUserProfilePic(MyUser myUser) async {
+    try {
+      final url = await upLoadPicture(myUser.profilePic!, myUser.id);
+      myUser = myUser.copyWith(profilePic: url);
+      await userCollection.doc(myUser.id).set(myUser.toEntity().toDocument());
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+  
+  @override
+  Future<void> updateUserDetails(MyUser myUser)async {
+    try {
+    
+      await userCollection.doc(myUser.id).set(myUser.toEntity().toDocument());
     } catch (e) {
       log(e.toString());
       rethrow;

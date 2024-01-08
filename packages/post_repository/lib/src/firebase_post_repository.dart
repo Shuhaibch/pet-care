@@ -49,21 +49,25 @@ class FirebasePostRepository implements PostRepo {
   @override
   Future<List<Post>> getUserPost(String userId) async {
     try {
-      postList = [];
-      QuerySnapshot postSnapshot =
-          await postCollection.where('userId', isEqualTo: userId).get();
-      postSnapshot.docs.map(
-        (doc) => postList.add(
-          Post(
-            postId: doc['postId'],
-            userId: doc['userId'],
-            postPic: doc['postPic'],
-            caption: doc['caption'],
-            postDate: doc['postDate'],
-          ),
-        ),
-      );
-      return postList;
+      // postList = [];
+      // QuerySnapshot postSnapshot =
+      //     await postCollection.where('userId', isEqualTo: userId).get();
+      // postSnapshot.docs.map(
+      //   (doc) => postList.add(
+      //     Post(
+      //       postId: doc['postId'],
+      //       userId: doc['userId'],
+      //       postPic: doc['postPic'],
+      //       caption: doc['caption'],
+      //       postDate: doc['postDate'],
+      //     ),
+      //   ),
+      // );
+      // return postList;
+      return await postCollection.where('userId', isEqualTo: userId).get().then(
+          (value) => value.docs
+              .map((e) => Post.fromEntity(PostEntity.fromDocument(e.data())))
+              .toList());
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -120,7 +124,6 @@ class FirebasePostRepository implements PostRepo {
           SettableMetadata(
             contentType: "image/jpeg",
           ));
-      // UploadTask uploadTask = fireBaseStoreRef.putFile(File(file));
       String url = await fireBaseStoreRef.getDownloadURL();
       url = url.toString();
       return url;
@@ -128,16 +131,5 @@ class FirebasePostRepository implements PostRepo {
       log(e.toString());
       rethrow;
     }
-    // var ref = FirebaseStorage.instance
-    //     .ref()
-    //     .child("posts-Fahiz/postname-${DateTime.now()}");
-    // UploadTask uploadTask = ref.putFile(File(post.path));
-    // uploadTask
-    //     .then((p0) async => postUrl = (await ref.getDownloadURL()).toString())
-    //     .then((value) {
-    //   setState(() {
-    //     isReadyToUpload = true;
-    //   });
-    // });
   }
 }

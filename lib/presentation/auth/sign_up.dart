@@ -223,14 +223,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       onTap: () {
                                         if (_formKey.currentState!.validate()) {
                                           setState(() {
-                                            context
-                                                .read<SignUpBloc>()
-                                                .add(SignUpRequired(
-                                                  userName: nameCtrl.text,
-                                                  passWord: passWordCtrl.text,
-                                                  email: emailCtrl.text,
-                                                  role: "user"
-                                                ));
+                                            context.read<SignUpBloc>().add(
+                                                SignUpRequired(
+                                                    userName: nameCtrl.text,
+                                                    passWord: passWordCtrl.text,
+                                                    email: emailCtrl.text,
+                                                    role: "User"));
                                           });
                                         }
                                       },

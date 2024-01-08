@@ -10,6 +10,7 @@ abstract class PostEvent extends Equatable {
 
 class GetAllPost extends PostEvent {}
 
+
 class CreatePost extends PostEvent {
   final Post post;
   final String image;
@@ -20,11 +21,7 @@ class CreatePost extends PostEvent {
 }
 
 class DeletePost extends PostEvent {
-  final Post post;
-  const DeletePost({required this.post});
-}
+  final String postId;
 
-class UpdatePost extends PostEvent {
-  final Post post;
-  const UpdatePost({required this.post});
+  const DeletePost({required this.postId});
 }

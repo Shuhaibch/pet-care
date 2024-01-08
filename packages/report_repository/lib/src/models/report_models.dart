@@ -6,21 +6,23 @@ import 'package:report_repository/report_repository.dart';
 /// User Model
 class Report extends Equatable {
   final String reportId;
-  final String userId;
-  final String reportPhoto;
-  final Timestamp date;
-  final String caption;
-  final GeoPoint location;
-  final String description;
+  final String? userId;
+  final String? reportPhoto;
+  final Timestamp? date;
+  final String? location;
+  final String? description;
+  final String? status;
+  final String catagory;
 
   const Report({
     required this.reportId,
     required this.userId,
     required this.reportPhoto,
     required this.date,
-    required this.caption,
     required this.location,
     required this.description,
+    required this.catagory,
+    this.status,
   });
 
   /// Empty User
@@ -29,9 +31,10 @@ class Report extends Equatable {
     userId: '',
     reportPhoto: "",
     date: Timestamp.now(),
-    caption: '',
     description: '',
-    location: const GeoPoint(11.0732, 76.0740),
+    location: '',
+    catagory: '',
+    status: '',
   );
 
   /// Report Copywith
@@ -40,18 +43,20 @@ class Report extends Equatable {
     String? userId,
     String? reportPhoto,
     Timestamp? date,
-    String? caption,
-    GeoPoint? location,
+    String? location,
     String? description,
+    String? catagory,
+    String? status,
   }) {
     return Report(
       reportId: reportId ?? this.reportId,
       userId: userId ?? this.userId,
       reportPhoto: reportPhoto ?? this.reportPhoto,
       date: date ?? this.date,
-      caption: caption ?? this.caption,
       location: location ?? this.location,
       description: description ?? this.description,
+      catagory: catagory??this.catagory,
+      status: status ?? this.status,
     );
   }
 
@@ -64,26 +69,27 @@ class Report extends Equatable {
   ///from local to firebase
   ReportEntity toEntity() {
     return ReportEntity(
-      reportId: reportId,
-      userId: userId,
-      reportPhoto: reportPhoto,
-      date: date,
-      caption: caption,
-      location: location,
-      description: description,
-    );
+        reportId: reportId,
+        userId: userId,
+        reportPhoto: reportPhoto,
+        date: date,
+        location: location,
+        description: description,
+        catagory:catagory,
+        status: status);
   }
 
   ///Form Firebase to local storage
-  static Report formEntity(ReportEntity entity) {
+  static Report fromEntity(ReportEntity entity) {
     return Report(
       reportId: entity.reportId,
       userId: entity.userId,
       reportPhoto: entity.reportPhoto,
       date: entity.date,
-      caption: entity.caption,
       location: entity.location,
       description: entity.description,
+      catagory:entity.catagory,
+      status: entity.status,
     );
   }
 
@@ -93,8 +99,8 @@ class Report extends Equatable {
         userId,
         reportPhoto,
         date,
-        caption,
         location,
         description,
+        status,
       ];
 }

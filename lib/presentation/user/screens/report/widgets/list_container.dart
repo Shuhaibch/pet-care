@@ -34,6 +34,7 @@ class ListCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 55,
+              backgroundColor: Colors.transparent,
               child: Image(
                 alignment: Alignment.center,
                 height: 80,

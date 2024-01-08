@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:report_repository/report_repository.dart';
 
 class FirebaseReportRepository extends ReportRepository {
@@ -10,8 +12,10 @@ class FirebaseReportRepository extends ReportRepository {
 
   //* create Report
   @override
-  Future<void> createReport(Report report, String userId) async {
+  Future<void> createReport(Report report) async {
     try {
+      String url = await upLoadPicture(report.reportPhoto!, report.reportId);
+      report = report.copyWith(reportPhoto: url);
       await reportCollection
           .doc(report.reportId)
           .set(report.toEntity().toDocument());
@@ -25,23 +29,13 @@ class FirebaseReportRepository extends ReportRepository {
   @override
   Future<List<Report>> getReport(String userId) async {
     try {
-      QuerySnapshot reportSnapshot =
-          await reportCollection.where('userId', isEqualTo: userId).get();
-
-      reportSnapshot.docs.map(
-        (doc) => reportList.add(
-          Report(
-            reportId: doc['reportId'],
-            userId: doc['userId'],
-            reportPhoto: doc['reportPhoto'],
-            date: doc['date'],
-            caption: doc['caption'],
-            location: doc['location'],
-            description: doc['description'],
-          ),
-        ),
-      );
-      return reportList;
+      return await reportCollection
+          .where('userId', isEqualTo: userId)
+          .get()
+          .then((value) => value.docs
+              .map(
+                  (e) => Report.fromEntity(ReportEntity.fromDocument(e.data())))
+              .toList());
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -74,22 +68,30 @@ class FirebaseReportRepository extends ReportRepository {
   @override
   Future<List<Report>> getAllReport() async {
     try {
-      allReportList = [];
-      QuerySnapshot allReportSnapshot = await reportCollection.get();
-      allReportSnapshot.docs.map(
-        (doc) => allReportList.add(
-          Report(
-            reportId: doc['reportId'],
-            userId: doc['userId'],
-            reportPhoto: doc['reportPhoto'],
-            date: doc['date'],
-            caption: doc['caption'],
-            location: doc['location'],
-            description: doc['description'],
-          ),
-        ),
-      );
-      return allReportList;
+      return await reportCollection.get().then((value) => value.docs
+          .map((e) => Report.fromEntity(ReportEntity.fromDocument(e.data())))
+          .toList());
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  //* upload image
+  @override
+  Future<String> upLoadPicture(String file, String reportId) async {
+    try {
+      File imageFile = File(file);
+      Reference fireBaseStoreRef =
+          FirebaseStorage.instance.ref().child('Report/$reportId');
+      await fireBaseStoreRef.putFile(
+          imageFile,
+          SettableMetadata(
+            contentType: "image/jpeg",
+          ));
+      String url = await fireBaseStoreRef.getDownloadURL();
+      url = url.toString();
+      return url;
     } catch (e) {
       log(e.toString());
       rethrow;

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pet_care/application/bloc/post/post_bloc.dart'; 
-import 'package:pet_care/models/allmodel.dart';
+import 'package:pet_care/models/all_post.dart';
 import '../../widgets/widget.dart';
 import 'widget/widget.dart';
 

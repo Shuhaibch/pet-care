@@ -6,6 +6,7 @@ import 'package:pet_care/app.dart';
 import 'package:pet_care/firebase_options.dart';
 import 'package:pet_care/simple_bloc_observer.dart';
 import 'package:post_repository/post_repository.dart';
+import 'package:report_repository/report_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 void main() async {
@@ -19,6 +20,7 @@ void main() async {
     MyApp(
       FirebasePostRepository(),
       FirebaseUserRepository(),
+      FirebaseReportRepository(),
     ),
   );
 }

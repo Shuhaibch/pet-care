@@ -2,12 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/app_view.dart';
-import 'package:pet_care/application/bloc/post/post_bloc.dart';
+import 'package:pet_care/application/bloc/user/user_bloc.dart';
 import 'package:post_repository/post_repository.dart';
 
 import '../../../../../config/config.dart';
-import '../../../../../models/allmodel.dart';
+import '../../../../../models/all_post.dart';
 import 'widget.dart';
+
 
 class SinglePost extends StatefulWidget {
   const SinglePost({
@@ -34,7 +35,8 @@ class _SinglePostState extends State<SinglePost> {
   void initState() {
     super.initState();
     like = widget.post.post.like!;
-    isLiked = widget.post.post.like!.contains(user.uid);
+    isLiked =
+        widget.post.post.like!.contains(user!.uid);
   }
 
   void toggleLike() {
@@ -51,7 +53,7 @@ class _SinglePostState extends State<SinglePost> {
           like: likeList,
           postId: widget.post.post.postId,
           postPic: widget.post.post.postPic);
-      context.read<PostBloc>().add(UpdatePost(post: newPost));
+      context.read<UserBloc>().add(UpdatePost(post: newPost));
     } else {
       final List likeList =
           widget.post.removeLike(userId: widget.post.post.userId);
@@ -63,7 +65,7 @@ class _SinglePostState extends State<SinglePost> {
           like: likeList,
           postId: widget.post.post.postId,
           postPic: widget.post.post.postPic);
-      context.read<PostBloc>().add(UpdatePost(post: newPost));
+      context.read<UserBloc>().add(UpdatePost(post: newPost));
     }
   }
 
@@ -82,7 +84,7 @@ class _SinglePostState extends State<SinglePost> {
           ProfileRowInMainCard(
             width: widget.width,
             height: widget.height,
-            imageUrl: widget.post.post.postPic!,
+            imageUrl: widget.post.user.profilePic!,
             date: widget.formattedDate,
             userName: widget.post.user.name,
           ),

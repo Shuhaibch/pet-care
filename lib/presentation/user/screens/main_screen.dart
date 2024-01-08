@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pet_care/presentation/user/screens/screen.dart';
 import '../widgets/widget.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});

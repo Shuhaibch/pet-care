@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 
 class CustTextFeild extends StatelessWidget {
   const CustTextFeild({
-    Key? key,
+    super.key,
     required this.controller,
     required this.hintText,
     this.obscureText = false,
-    this.keyboardType,
     this.sufixIcon,
     this.onTap,
     this.prefixIcon,
@@ -15,12 +14,12 @@ class CustTextFeild extends StatelessWidget {
     this.focusNode,
     this.errorMsg,
     this.onChanged,
-    this.maxLines,
-  }) : super(key: key);
+    this.maxLines = 1,
+    // this.labelText,
+  });
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
-  final TextInputType? keyboardType;
   final Widget? sufixIcon;
   final VoidCallback? onTap;
   final Widget? prefixIcon;
@@ -29,6 +28,7 @@ class CustTextFeild extends StatelessWidget {
   final String? errorMsg;
   final String? Function(String?)? onChanged;
   final int? maxLines;
+  // final String? labelText;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,6 +41,8 @@ class CustTextFeild extends StatelessWidget {
         cursorColor: Colors.white,
         style: Theme.of(context).textTheme.displayMedium,
         decoration: InputDecoration(
+          // labelText: labelText,
+          labelStyle: Theme.of(context).textTheme.displaySmall,
           prefixIconColor: Colors.white,
           suffixIcon: sufixIcon,
           suffixIconColor: Colors.white,

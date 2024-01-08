@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../application/bloc/auth_bloc/sign_in/sign_in_bloc.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
@@ -23,19 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.white,
         ),
       ),
-      actions: [
-        IconButton(
-          onPressed: () {
-            context.read<SignInBloc>().add(SignOutRequired());
-          },
-          icon: Icon(
-            Icons.refresh,
-            color: Theme.of(context).iconTheme.color,
-            size: Theme.of(context).iconTheme.size,
-            weight: Theme.of(context).iconTheme.weight,
-          ),
-        ),
-      ],
+      
     );
   }
 

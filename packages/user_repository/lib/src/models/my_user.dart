@@ -4,14 +4,13 @@ import 'package:user_repository/src/entities/entity.dart';
 /// User Model
 //  enum UserRole { admin, user, police, forest, veterinary }
 
-
 class MyUser extends Equatable {
   final String id;
   final String name;
   final String address;
   final String email;
   final int phone;
-  final String? userRole;
+  final String userRole;
   final String? profilePic;
 
   const MyUser({
@@ -20,7 +19,7 @@ class MyUser extends Equatable {
     required this.address,
     required this.email,
     required this.phone,
-    this.userRole,
+    required this.userRole,
     this.profilePic,
   });
 
@@ -31,8 +30,8 @@ class MyUser extends Equatable {
     address: "",
     email: '',
     phone: 0,
-    userRole: 'user',
-     profilePic: ''
+    userRole: '',
+    profilePic: '',
   );
 
   /// MyUser Copywith
@@ -51,7 +50,7 @@ class MyUser extends Equatable {
       address: address ?? this.address,
       email: email ?? this.email,
       phone: phone ?? this.phone,
-      userRole: userRole?? this.userRole,
+      userRole: userRole ?? this.userRole,
       profilePic: profilePic ?? this.profilePic,
     );
   }
@@ -82,11 +81,13 @@ class MyUser extends Equatable {
       name: entity.name,
       address: entity.address,
       email: entity.email,
-      userRole: empty.userRole,
+      userRole: entity.userRole,
       phone: entity.phone,
+      profilePic: entity.profilePic,
     );
   }
 
   @override
-  List<Object?> get props => [id, name, address, email, phone,userRole, profilePic];
+  List<Object?> get props =>
+      [id, name, address, email, phone, userRole, profilePic];
 }

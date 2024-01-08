@@ -3,10 +3,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_care/config/app_router.dart';
+import 'package:pet_care/application/bloc/auth_bloc/my_user_bloc/my_users_bloc.dart';
 import 'package:pet_care/config/theme.dart';
-import 'package:pet_care/presentation/user/screens/home/home_screen.dart';
-import 'package:pet_care/presentation/user/screens/main_screen.dart';
+import 'package:pet_care/presentation/splash/splash_screen.dart';
+import 'package:post_repository/post_repository.dart';
+import 'package:report_repository/report_repository.dart';
 import 'application/bloc/auth_bloc/authentication/authentication_bloc.dart';
 import 'application/bloc/auth_bloc/sign_in/sign_in_bloc.dart';
 import 'application/bloc/auth_bloc/sign_up/sign_up_bloc.dart';
@@ -14,18 +15,24 @@ import 'presentation/auth/log_in.dart';
 
 var width;
 var height;
-late User user;
+User? user;
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class MyAppView extends StatelessWidget {
-  const MyAppView({super.key});
-
+  const MyAppView({
+    super.key,
+    required this.postRepo,
+    required this.reportRepository,
+  });
+  final PostRepo postRepo;
+  final ReportRepository reportRepository;
   @override
   Widget build(BuildContext context) {
     width ??= MediaQuery.of(context).size.width;
     height ??= MediaQuery.of(context).size.height;
     return MaterialApp(
-      onGenerateRoute: AppRoute.onGenerateRoute,
-      initialRoute: HomeScreen.routeName,
+      // onGenerateRoute: AppRoute.onGenerateRoute,
+      // initialRoute: HomeScreen.routeName,
       theme: them(),
       debugShowCheckedModeBanner: false,
       title: 'Pet Care System',
@@ -33,14 +40,48 @@ class MyAppView extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state.status == AuthStatus.authenticated) {
-            user = state.user!;
-            return BlocProvider(
-              create: (context) => SignInBloc(
-                userRepository:
-                    context.read<AuthenticationBloc>().userRepository,
-              ),
-              child: MainScreen(),
-            );
+            user = state.user;
+            return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => SignInBloc(
+                      userRepository:
+                          context.read<AuthenticationBloc>().userRepository,
+                    ),
+                  ),
+                  // BlocProvider(
+                  //   create: (context) => MyUsersBloc(
+                  //     userRepository:
+                  //         context.read<AuthenticationBloc>().userRepository,
+                  //   )..add(
+                  //       GetMyUsers(
+                  //         myUsersId: context
+                  //             .read<AuthenticationBloc>()
+                  //             .state
+                  //             .user!
+                  //             .uid,
+                  //       ),
+                  //     ),
+                  // ),
+                  
+                ],
+                child:BlocProvider(
+                    create: (context) => MyUsersBloc(
+                      userRepository:
+                          context.read<AuthenticationBloc>().userRepository,
+                    )..add(
+                        GetMyUsers(
+                          myUsersId: context
+                              .read<AuthenticationBloc>()
+                              .state
+                              .user!
+                              .uid,
+                        ),
+                      ),
+                      child:  SplashScreen(),
+                  ),
+                  
+                );
           } else {
             return BlocProvider(
               create: (context) => SignUpBloc(

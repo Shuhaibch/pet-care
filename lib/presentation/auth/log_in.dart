@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_care/app_view.dart';
+import 'package:pet_care/application/bloc/auth_bloc/my_user_bloc/my_users_bloc.dart';
 import 'package:pet_care/presentation/auth/sign_up.dart';
+import 'package:pet_care/presentation/splash/splash_screen.dart';
+import 'package:post_repository/post_repository.dart';
+import 'package:report_repository/report_repository.dart';
 import '../../application/bloc/auth_bloc/authentication/authentication_bloc.dart';
 import '../../application/bloc/auth_bloc/sign_in/sign_in_bloc.dart';
 import '../../application/bloc/auth_bloc/sign_up/sign_up_bloc.dart';
@@ -11,7 +15,7 @@ import '../user/widgets/cust_text_feild.dart';
 import '../user/screens/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({super.key, });
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -53,7 +57,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 signInRequired = false;
               });
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => MainScreen(),
+                builder: (context) =>  BlocProvider(
+                    create: (context) => MyUsersBloc(
+                      userRepository:
+                          context.read<AuthenticationBloc>().userRepository,
+                    )..add(
+                        GetMyUsers(
+                          myUsersId: context
+                              .read<AuthenticationBloc>()
+                              .state
+                              .user!
+                              .uid,
+                        ),
+                      ),
+                      child:  SplashScreen(),
+                  ),
               ));
             } else if (state is SignInfailed) {
               setState(() {
