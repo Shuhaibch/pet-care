@@ -70,40 +70,42 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(CreatePostFailed(errorMsg: e.toString()));
       }
     });
-     //* Create Post
+    //* delete Post
     on<DeletePost>((event, emit) async {
       emit(DeletePostLoading());
       try {
-       allPostList = await _postRepo.getAllPost();
-        allUserList = await _userRepository.getAllUser();
-        // log(allUserList.toString());
-        postList = [];
-
-        for (var postElement in allPostList) {
-          for (var userElement in allUserList) {
-            if (postElement.userId == userElement.id) {
-              post = post.copyWith(
-                post: postElement,
-                user: userElement,
-              );
-              postList.add(post);
-            }
-          }
-        }
-        // log(postList.length.toString());
-        postList.sort(
-          (a, b) => b.post.postDate.compareTo(a.post.postDate),
-        );
-        // _postsController.add(allPostList);
-        // log(postList.toString());
-
-        emit(GetAllPostSuccess(allPost: postList));
+        log('test', name: 'in delete');
+        _postRepo.deletePost(event.postId);
+        emit(DeletePostSuccess());
       } catch (e) {
         log(e.toString());
         emit(DeletePostFailed(errorMsg: e.toString()));
       }
     });
-
-   
   }
 }
+ 
+//  allPostList = await _postRepo.getAllPost();
+//         allUserList = await _userRepository.getAllUser();
+//         // log(allUserList.toString());
+//         postList = [];
+
+//         for (var postElement in allPostList) {
+//           for (var userElement in allUserList) {
+//             if (postElement.userId == userElement.id) {
+//               post = post.copyWith(
+//                 post: postElement,
+//                 user: userElement,
+//               );
+//               postList.add(post);
+//             }
+//           }
+//         }
+//         // log(postList.length.toString());
+//         postList.sort(
+//           (a, b) => b.post.postDate.compareTo(a.post.postDate),
+//         );
+//         // _postsController.add(allPostList);
+//         // log(postList.toString());
+
+//         emit(GetAllPostSuccess(allPost: postList));

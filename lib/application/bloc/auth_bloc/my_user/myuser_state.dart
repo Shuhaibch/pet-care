@@ -10,7 +10,11 @@ abstract class MyuserState extends Equatable {
 class MyuserInitial extends MyuserState {}
 
 //* Update User Profile pIc
-class UpdateUserProfileSuccess extends MyuserState {}
+class UpdateUserProfileSuccess extends MyuserState {
+  final MyUser user;
+
+  const UpdateUserProfileSuccess({required this.user});
+}
 
 class UpdateUserProfileLoading extends MyuserState {}
 
@@ -34,8 +38,17 @@ class GetUserDetailsError extends MyuserState {
 
   const GetUserDetailsError({required this.errorMsg});
 }
+
 //* Update User Details
-class UpdateUserDetailsSuccess extends MyuserState {}
+class UpdateUserDetailsSuccess extends MyuserState {
+  // final MyUser user;
+
+  const UpdateUserDetailsSuccess(
+      //   {
+      //   // required this.user,
+      // }
+      );
+}
 
 class UpdateUserDetailsLoading extends MyuserState {}
 
@@ -44,6 +57,7 @@ class UpdateUserDetailsError extends MyuserState {
 
   const UpdateUserDetailsError({required this.errorMsg});
 }
+
 //* Update User password
 class UpdateUserPasswordSuccess extends MyuserState {}
 
@@ -54,4 +68,3 @@ class UpdateUserPasswordError extends MyuserState {
 
   const UpdateUserPasswordError({required this.errorMsg});
 }
-

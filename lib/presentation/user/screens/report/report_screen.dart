@@ -73,18 +73,18 @@ class ReportScreen extends StatelessWidget {
                       title: "Vectinary",
                       imagelocation: 'assets/images/clinic.png'),
                 ),
-                InkWell(
-                  onTap: () {
-                    navigatorKey.currentState!.push(MaterialPageRoute(
-                      builder: (context) =>
-                          const ReportDetailsScreen(title: "Adopt Me"),
-                    ));
-                  },
-                  child: ListCard(
-                      height: height,
-                      title: "Adopt Me",
-                      imagelocation: 'assets/images/adopt.png'),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     navigatorKey.currentState!.push(MaterialPageRoute(
+                //       builder: (context) =>
+                //           const ReportDetailsScreen(title: "Adopt Me"),
+                //     ));
+                //   },
+                //   child: ListCard(
+                //       height: height,
+                //       title: "Adopt Me",
+                //       imagelocation: 'assets/images/adopt.png'),
+                // ),
               ],
             ),
           ),

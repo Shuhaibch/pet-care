@@ -60,7 +60,7 @@ class Post extends Equatable {
       postId: postId,
       userId: userId,
       postPic: postPic,
-      like:like,
+      like: like,
       caption: caption,
       postDate: postDate,
     );
@@ -80,10 +80,12 @@ class Post extends Equatable {
 
   addLike({required String userId}) {
     like!.add(userId);
-    
+    return like;
   }
-    removeLike({required String userId}) {
+
+  removeLike({required String userId}) {
     like!.remove(userId);
+    return like;
   }
 
   @override

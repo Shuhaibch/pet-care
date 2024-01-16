@@ -12,7 +12,7 @@ part 'admin_state.dart';
 
 class AdminBloc extends Bloc<AdminEvent, AdminState> {
   final ReportRepository _reportRepository;
-  final PostRepo _postRepo;
+  final PostRepo _postRepo; 
   final UserRepository _userRepository;
   AdminBloc({
     required UserRepository userRepository,

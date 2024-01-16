@@ -31,25 +31,65 @@ class GetUserDataSuccess extends UserState {
     required this.userPostList,
     required this.userDetail,
   });
+   @override
+  List<Object> get props => [userReportList, userPostList, userDetail];
 }
 
-class GetUserDataLoading extends UserState {}
-
+class GetUserDataLoading extends UserState {
+  @override
+  List<Object> get props => [];
+}
 class GetUserDataError extends UserState {
   final String errorMsg;
 
   const GetUserDataError({required this.errorMsg});
+  @override
+  List<Object> get props => [errorMsg];
 }
 
 //* Update Report
-class UpdateReportSuccess extends UserState {}
-
-class UpdateReportLoading extends UserState {}
-
+class UpdateReportSuccess extends UserState {
+  @override
+  List<Object> get props => [];
+}
+class UpdateReportLoading extends UserState {
+  @override
+  List<Object> get props => [];
+}
 class UpdateReportError extends UserState {
   final String errorMsg;
-
   const UpdateReportError({required this.errorMsg});
+  @override
+  List<Object> get props => [errorMsg];
 }
 
-class GetUserProfile extends UserState {}
+class GetUserProfile extends UserState {
+  @override
+  List<Object> get props => [];}
+
+//* Remove Profile
+class RemoveProfileSuccess extends UserState {
+  @override
+  List<Object> get props => [];}
+
+class RemoveProfileLoading extends UserState {
+  @override
+  List<Object> get props => [];}
+
+class RemoveProfileError extends UserState {
+  final String errorMsg;
+
+  const RemoveProfileError({required this.errorMsg});
+  
+  @override
+  List<Object> get props => [];
+}
+//* Delete Post
+class DeletePostSuccess extends UserState {}
+
+class DeletePostLoading extends UserState {}
+
+class DeletePostError extends UserState {
+  final String errorMsg;
+  const DeletePostError({required this.errorMsg});
+}

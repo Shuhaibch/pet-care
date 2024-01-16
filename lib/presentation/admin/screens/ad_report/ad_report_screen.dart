@@ -1,3 +1,5 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +8,6 @@ import 'package:pet_care/app_view.dart';
 import 'package:pet_care/application/bloc/report/report_bloc.dart';
 import 'package:pet_care/models/all_report.dart';
 import 'package:pet_care/presentation/admin/screens/ad_report/widgets/single_report_screen.dart';
-import 'package:pet_care/presentation/user/screens/main_screen.dart';
 import 'package:pet_care/presentation/user/widgets/office_single_report.dart';
 
 class ADReportScreen extends StatefulWidget {
@@ -65,8 +66,10 @@ class _ADReportScreenState extends State<ADReportScreen> {
                     return InkWell(
                       onTap: () {
                         navigatorKey.currentState!.push(MaterialPageRoute(
-                          builder: (context) =>
-                              SingleReportScreen(report: report),
+                          builder: (_) => BlocProvider.value(
+                            value: BlocProvider.of<ReportBloc>(context),
+                            child: ADSingleReportScreen(report: report),
+                          ),
                         ));
                       },
                       child: OfficeSingleReport(

@@ -1,17 +1,14 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/app_view.dart';
 import 'package:pet_care/config/config.dart';
-import 'package:pet_care/presentation/admin/ad_main_screens.dart';
-import 'package:pet_care/presentation/user/screens/main_screen.dart';
 import 'package:user_repository/user_repository.dart';
 
+import '../../../../../application/bloc/admin/admin_bloc/admin_bloc.dart';
 import '../../../../../application/bloc/auth_bloc/my_user/myuser_bloc.dart';
 
 class UserScreen extends StatelessWidget {
@@ -234,6 +231,8 @@ class UserScreen extends StatelessWidget {
                     //   builder: (context) => ADMainScreen(),
                     // ));
                     navigatorKey.currentState!.pop();
+
+                    context.read<AdminBloc>().add(GetAllData());
                   } else {}
                 },
                 builder: (context, state) {
@@ -263,8 +262,8 @@ class UserScreen extends StatelessWidget {
                                     Radius.elliptical(20, 20))),
                             child: Center(
                               child: state is UpdateUserDetailsLoading
-                                  ? CircularProgressIndicator(
-                                      color: Colors.grey[900],
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.white,
                                     )
                                   : Text(
                                       "Update",

@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,22 +7,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/application/bloc/report/report_bloc.dart';
 import 'package:pet_care/config/config.dart';
 import 'package:pet_care/models/all_report.dart';
-import 'package:pet_care/presentation/user/screens/main_screen.dart';
 import 'package:report_repository/report_repository.dart';
 
 import '../../../../../app_view.dart';
 
-class SingleReportScreen extends StatelessWidget {
-  SingleReportScreen({
+class ADSingleReportScreen extends StatelessWidget {
+  ADSingleReportScreen({
     super.key,
     required this.report,
   });
 
-  final List<String> progressList = [
-    "Reported",
-    'Investigating',
-    "Completed"
-  ];
+  final List<String> progressList = ["Reported", 'Investigating', "Completed"];
   String? progress;
   AllReport report;
   final ValueNotifier<String> updateProgress = ValueNotifier("Select progress");
@@ -163,44 +158,6 @@ class SingleReportScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        //   children: [
-                        //     Column(
-                        //       children: [
-                        //         Text(
-                        //           "Posts",
-                        //           style: Theme.of(context)
-                        //               .textTheme
-                        //               .displayMedium,
-                        //         ),
-                        //         Text(
-                        //           state.userPostList.length.toString(),
-                        //           style: Theme.of(context)
-                        //               .textTheme
-                        //               .displayMedium,
-                        //         )
-                        //       ],
-                        //     ),
-                        //     Column(
-                        //       children: [
-                        //         Text(
-                        //           "Reports",
-                        //           style: Theme.of(context)
-                        //               .textTheme
-                        //               .displayMedium,
-                        //         ),
-                        //         Text(
-                        //           state.userReportList.length.toString(),
-                        //           style: Theme.of(context)
-                        //               .textTheme
-                        //               .displayMedium,
-                        //         )
-                        //       ],
-                        //     )
-                        //   ],
-                        // ),
                       ],
                     ),
                   ),
@@ -211,14 +168,9 @@ class SingleReportScreen extends StatelessWidget {
               BlocConsumer<ReportBloc, ReportState>(
                 listener: (context, state) {
                   if (state is UpdateReportSuccess) {
-                    // navigatorKey.currentState!
-                    //     .pushReplacement(MaterialPageRoute(
-                    //   builder: (context) => ADMainScreen(),
-                    // ));
+                    context.read<ReportBloc>().add(GetAllReport());
                     navigatorKey.currentState!.pop();
-                  } else if(state is UpdateReportError){
-
-                  }
+                  } else if (state is UpdateReportError) {}
                 },
                 builder: (context, state) {
                   return SizedBox(
@@ -235,9 +187,11 @@ class SingleReportScreen extends StatelessWidget {
                                   .read<ReportBloc>()
                                   .add(UpdateReport(report: updatedReport));
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text("Update Status")));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text("Update Status"),
+                                backgroundColor: Colors.red,
+                              ));
                             }
                           },
                           child: Container(
@@ -249,8 +203,8 @@ class SingleReportScreen extends StatelessWidget {
                                     Radius.elliptical(20, 20))),
                             child: Center(
                               child: state is UpdateReportLoading
-                                  ? CircularProgressIndicator(
-                                      color: Colors.grey[900],
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.white,
                                     )
                                   : Text(
                                       "Update",

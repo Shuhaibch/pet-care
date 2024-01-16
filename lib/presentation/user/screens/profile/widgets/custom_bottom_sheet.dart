@@ -27,11 +27,9 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
     return BlocConsumer<MyuserBloc, MyuserState>(
       listener: (context, state) {
         if (state is UpdateUserProfileSuccess) {
-          
           showBottomNotifier.value = false;
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Profile Updated Successfully')));
-
         } else {}
       },
       builder: (context, state) {
@@ -107,7 +105,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                           children: [
                             InkWell(
                               onTap: () async {
-                                if (selectedProfileImage != null) { 
+                                if (selectedProfileImage != null) {
                                   myUser = myUser.copyWith(
                                       profilePic: selectedProfileImage!.path);
                                   context
@@ -207,7 +205,13 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  myUser = myUser.copyWith(
+                                      profilePic: null);
+                                  context
+                                      .read<MyuserBloc>()
+                                      .add(UpdateUserProfile(user: myUser));
+                                },
                                 child: Column(
                                   children: [
                                     Container(

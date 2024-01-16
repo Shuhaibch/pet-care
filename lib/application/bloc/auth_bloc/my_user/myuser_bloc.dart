@@ -17,7 +17,9 @@ class MyuserBloc extends Bloc<MyuserEvent, MyuserState> {
       emit(UpdateUserProfileLoading());
       try {
         await _userRepository.updateUserProfilePic(event.user);
-        emit(UpdateUserProfileSuccess());
+        final MyUser user = await _userRepository.getUserData(event.user.id);
+
+        emit(UpdateUserProfileSuccess(user: user));
       } catch (e) {
         log(e.toString());
         emit(UpdateUserProfileError(errorMsg: e.toString()));
@@ -28,7 +30,8 @@ class MyuserBloc extends Bloc<MyuserEvent, MyuserState> {
       emit(UpdateUserDetailsLoading());
       try {
         await _userRepository.updateUserDetails(event.user);
-        emit(UpdateUserDetailsSuccess());
+        // final MyUser user = await _userRepository.getUserData(event.user.id);
+        emit(const UpdateUserDetailsSuccess());
       } catch (e) {
         log(e.toString());
         emit(UpdateUserDetailsError(errorMsg: e.toString()));
@@ -36,8 +39,8 @@ class MyuserBloc extends Bloc<MyuserEvent, MyuserState> {
     });
 
     //* update user password
-    on<UpdatePassWord>((event, emit) async{
-       emit(UpdateUserPasswordLoading());
+    on<UpdatePassWord>((event, emit) async {
+      emit(UpdateUserPasswordLoading());
       try {
         // await _userRepository.resetPassword(event.user);
         emit(UpdateUserPasswordSuccess());

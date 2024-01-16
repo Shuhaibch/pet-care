@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/models/all_report.dart';
 import '../../../../../config/config.dart';
+
 class OfficeSingleReport extends StatefulWidget {
   const OfficeSingleReport({
     super.key,
@@ -26,40 +27,7 @@ class _OfficeSingleReport extends State<OfficeSingleReport> {
   @override
   void initState() {
     super.initState();
-    // like = widget.post.post.like!;
-    // isLiked =
-    //     widget.post.post.like!.contains(user!.uid);
   }
-
-  // void toggleLike() {
-  //   setState(() {
-  //     isLiked = !isLiked;
-  //   });
-  //   if (isLiked) {
-  //     final List likeList =
-  //         widget.post.addLike(userId: widget.post.post.userId);
-  //     final Post newPost = Post(
-  //         userId: widget.post.post.userId,
-  //         postDate: widget.post.post.postDate,
-  //         caption: widget.post.post.caption,
-  //         like: likeList,
-  //         postId: widget.post.post.postId,
-  //         postPic: widget.post.post.postPic);
-  //     context.read<UserBloc>().add(UpdatePost(post: newPost));
-  //   } else {
-  //     final List likeList =
-  //         widget.post.removeLike(userId: widget.post.post.userId);
-
-  //     final Post newPost = Post(
-  //         userId: widget.post.post.userId,
-  //         postDate: widget.post.post.postDate,
-  //         caption: widget.post.post.caption,
-  //         like: likeList,
-  //         postId: widget.post.post.postId,
-  //         postPic: widget.post.post.postPic);
-  //     context.read<UserBloc>().add(UpdatePost(post: newPost));
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +40,6 @@ class _OfficeSingleReport extends State<OfficeSingleReport> {
       ),
       child: Column(
         children: [
-          //* profile with name and photo
-          // ProfileRowInMainCard(
-          //   width: widget.width,
-          //   height: widget.height,
-          //   imageUrl: widget.post.user.profilePic!,
-          //   date: widget.formattedDate,
-          //   userName: widget.post.user.name,
-          // ),
           kheight10,
 
           //* Main Picture
@@ -131,27 +91,6 @@ class _OfficeSingleReport extends State<OfficeSingleReport> {
                     ],
                   ),
                 ),
-
-          //* Icons
-          const Padding(
-            padding: EdgeInsets.only(
-              left: 9.0,
-              top: 10,
-            ),
-            child: Row(
-              children: [
-                // LikeButton(
-                //   isLiked: isLiked,
-                //   onTap: toggleLike,
-                // ),
-                // kwidth10,
-                // Text(like.length.toString(),
-                //     style: Theme.of(context).textTheme.displaySmall),
-                // kwidth20,
-                // const Icon(Icons.mode_comment_outlined)
-              ],
-            ),
-          )
         ],
       ),
     );

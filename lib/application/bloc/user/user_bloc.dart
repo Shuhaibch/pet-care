@@ -54,6 +54,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     //* Delete Report
     on<DeleteReport>((event, emit) {
+      log("delete");
       emit(DeleteReportLoading());
       try {
         _reportRepository.deleteReport(event.reportId);
@@ -70,6 +71,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         await _postRepo.updatePost(event.post);
       } catch (e) {
         log(e.toString());
+      }
+    });
+
+    //* Remove User Profile pic
+    on<RemoveProfilePic>((event, emit) async {
+      emit(RemoveProfileLoading());
+      try {
+        await _userRepository.updateUserDetails(event.myUser);
+        emit(RemoveProfileSuccess());
+      } catch (e) {
+        log(e.toString(), name: "on User Report");
+        emit(RemoveProfileError(errorMsg: e.toString()));
+      }
+    });
+
+    //* Delete Post
+    on<DeletePost>((event, emit){
+      emit(DeletePostLoading());
+      try {
+        _postRepo.deletePost(event.post);
+        emit(DeletePostSuccess());
+      } catch (e) {
+        log(e.toString(), name: "on Deltete Post");
+        emit(DeletePostError(errorMsg: e.toString()));
       }
     });
   }

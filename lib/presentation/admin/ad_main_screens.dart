@@ -3,9 +3,7 @@ import 'screens/screen.dart';
 import 'package:pet_care/presentation/admin/widgets/ad_custom_nav_bar.dart';
 
 class ADMainScreen extends StatelessWidget {
-   ADMainScreen({super.key});
- 
-  
+  ADMainScreen({super.key});
 
   final _pages = [
     const ADHomeScreen(),

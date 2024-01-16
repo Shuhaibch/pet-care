@@ -91,6 +91,8 @@ class FirebaseUserRepository implements UserRepository {
       rethrow;
     }
   }
+  
+
 
   @override
   Future<List<MyUser>> getAllUser() async {
@@ -167,4 +169,6 @@ class FirebaseUserRepository implements UserRepository {
       rethrow;
     }
   }
+  
+  
 }

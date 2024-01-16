@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/app_view.dart';
@@ -8,7 +9,6 @@ import 'package:post_repository/post_repository.dart';
 import '../../../../../config/config.dart';
 import '../../../../../models/all_post.dart';
 import 'widget.dart';
-
 
 class SinglePost extends StatefulWidget {
   const SinglePost({
@@ -35,8 +35,7 @@ class _SinglePostState extends State<SinglePost> {
   void initState() {
     super.initState();
     like = widget.post.post.like!;
-    isLiked =
-        widget.post.post.like!.contains(user!.uid);
+    isLiked = widget.post.post.like!.contains(FirebaseAuth.instance.currentUser!.uid);
   }
 
   void toggleLike() {

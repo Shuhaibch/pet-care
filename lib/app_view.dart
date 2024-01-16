@@ -40,48 +40,43 @@ class MyAppView extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state.status == AuthStatus.authenticated) {
-            user = state.user;
+            user = FirebaseAuth.instance.currentUser!;
             return MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                    create: (context) => SignInBloc(
-                      userRepository:
-                          context.read<AuthenticationBloc>().userRepository,
+              providers: [
+                BlocProvider(
+                  create: (context) => SignInBloc(
+                    userRepository:
+                        context.read<AuthenticationBloc>().userRepository,
+                  ),
+                ),
+                // BlocProvider(
+                //   create: (context) => MyUsersBloc(
+                //     userRepository:
+                //         context.read<AuthenticationBloc>().userRepository,
+                //   )..add(
+                //       GetMyUsers(
+                //         myUsersId: context
+                //             .read<AuthenticationBloc>()
+                //             .state
+                //             .user!
+                //             .uid,
+                //       ),
+                //     ),
+                // ),
+              ],
+              child: BlocProvider(
+                create: (context) => MyUsersBloc(
+                  userRepository:
+                      context.read<AuthenticationBloc>().userRepository,
+                )..add(
+                    GetMyUsers(
+                      myUsersId:
+                          context.read<AuthenticationBloc>().state.user!.uid,
                     ),
                   ),
-                  // BlocProvider(
-                  //   create: (context) => MyUsersBloc(
-                  //     userRepository:
-                  //         context.read<AuthenticationBloc>().userRepository,
-                  //   )..add(
-                  //       GetMyUsers(
-                  //         myUsersId: context
-                  //             .read<AuthenticationBloc>()
-                  //             .state
-                  //             .user!
-                  //             .uid,
-                  //       ),
-                  //     ),
-                  // ),
-                  
-                ],
-                child:BlocProvider(
-                    create: (context) => MyUsersBloc(
-                      userRepository:
-                          context.read<AuthenticationBloc>().userRepository,
-                    )..add(
-                        GetMyUsers(
-                          myUsersId: context
-                              .read<AuthenticationBloc>()
-                              .state
-                              .user!
-                              .uid,
-                        ),
-                      ),
-                      child:  SplashScreen(),
-                  ),
-                  
-                );
+                child: SplashScreen(),
+              ),
+            );
           } else {
             return BlocProvider(
               create: (context) => SignUpBloc(

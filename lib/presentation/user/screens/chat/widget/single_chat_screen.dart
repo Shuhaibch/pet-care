@@ -4,15 +4,15 @@ import 'single_app_bar.dart';
 import 'type_chat_widget.dart';
 
 class SingleChatScreen extends StatelessWidget {
-  static const String routeName = '/single';
+  // static const String routeName = '/single';
 
-  get separatorBuilder => null;
-  static Route route() {
-    return MaterialPageRoute(
-      settings: const RouteSettings(name: routeName),
-      builder: (_) => const SingleChatScreen(),
-    );
-  }
+  // get separatorBuilder => null;
+  // static Route route() {
+  //   return MaterialPageRoute(
+  //     settings: const RouteSettings(name: routeName),
+  //     builder: (_) => const SingleChatScreen(),
+  //   );
+  // }
 
   const SingleChatScreen({super.key});
   

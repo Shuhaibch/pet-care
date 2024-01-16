@@ -6,7 +6,6 @@ import 'package:pet_care/config/config.dart';
 import 'package:pet_care/models/all_data.dart';
 import 'package:pet_care/presentation/admin/screens/ad_home/widgets/user_screen.dart';
 import 'package:pet_care/presentation/admin/widgets/user_list_tile.dart';
-import 'package:pet_care/presentation/user/screens/main_screen.dart';
 
 List<AllData> allData = [];
 
@@ -29,8 +28,8 @@ class _ADHomeScreenState extends State<ADHomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<AdminBloc, AdminState>(
-          // buildWhen: (previous, current) => previous is GetAllDataSuccess,
-          listener: (context, state) {},
+          listener: (context, state) {
+          },
           builder: (context, state) {
             if (state is GetAllDataSuccess) {
               allData = state.allData;
@@ -63,8 +62,11 @@ class _ADHomeScreenState extends State<ADHomeScreen> {
                           return InkWell(
                             onTap: () {
                               navigatorKey.currentState!.push(MaterialPageRoute(
-                                builder: (context) => UserScreen(
-                                  user: allData.myUser,
+                                builder: (_) => BlocProvider.value(
+                                  value: BlocProvider.of<AdminBloc>(context),
+                                  child: UserScreen(
+                                    user: allData.myUser,
+                                  ),
                                 ),
                               ));
                             },

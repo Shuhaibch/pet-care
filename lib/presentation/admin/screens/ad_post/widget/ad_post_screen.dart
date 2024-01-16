@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +53,7 @@ class _ADSinglePostState extends State<ADSinglePost> {
           BlocListener<PostBloc, PostState>(
             listener: (context, state) {
               if (state is DeletePostSuccess) {
-                // context.read<PostBloc>().add(GetAllPost());
+                context.read<PostBloc>().add(GetAllPost());
               }
             },
             child: ProfileRowInMainCard(
@@ -62,6 +64,7 @@ class _ADSinglePostState extends State<ADSinglePost> {
               userName: widget.post.user.name,
               isAdmin: true,
               onTap: () {
+                log('tapp');
                 context
                     .read<PostBloc>()
                     .add(DeletePost(postId: widget.post.post.postId!));

@@ -1,17 +1,15 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_care/app_view.dart';
 import 'package:pet_care/config/config.dart';
 
 import '../../widgets/widget.dart';
 import 'widget/widgets.dart';
-class ChatScreen extends StatelessWidget {
-  final String imageUrl =
-      'https://imgs.search.brave.com/cb4ekmNNh1Ynv3bIRlnc7-z-HPHvqXwU3m4plVS50qc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cmQuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIxLzAzL0dl/dHR5SW1hZ2VzLTEz/NTE1NzgyOC5qcGc';
 
+class ChatScreen extends StatefulWidget {
   static const String routeName = '/chat';
   static Route route() {
-    //board okke upeych show erkknu on 
+    //board okke upeych show erkknu on
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
       builder: (_) => const ChatScreen(),
@@ -21,11 +19,25 @@ class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
 
   @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final String imageUrl =
+      'https://imgs.search.brave.com/cb4ekmNNh1Ynv3bIRlnc7-z-HPHvqXwU3m4plVS50qc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cmQuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIxLzAzL0dl/dHR5SW1hZ2VzLTEz/NTE1NzgyOC5qcGc';
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     //neech podaaa
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        child: Icon(Icons.message_outlined),
+        onPressed: () {},
+      ),
       appBar: CustomAppBar(
         //Nk bore adichund appo nganokke ndavym
         height: height,
@@ -36,29 +48,13 @@ class ChatScreen extends StatelessWidget {
         child: Column(
           children: [
             //* Search bar
-            CupertinoSearchTextField(
-              backgroundColor: Colors.grey.withOpacity(0.3),
-              prefixIcon: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
-                child: Icon(
-                  CupertinoIcons.search,
-                  color: Colors.grey,
-                ),
-              ),
-              suffixIcon: const Icon(
-                CupertinoIcons.xmark_circle_fill,
-                color: Colors.grey,
-              ),
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            kheight10,
+
+            // kheight10,
             Expanded(
               child: ListView.separated(
                 itemBuilder: (context, index) {
                   return Container(
-                    width: width,//korch flutter arinjuchtt oru kaaryulla
+                    width: width, //korch flutter arinjuchtt oru kaaryulla
                     height: height * .105,
                     decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(.25),
@@ -70,7 +66,9 @@ class ChatScreen extends StatelessWidget {
                     //* Single Row
                     child: InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/single');
+                        navigatorKey.currentState!.push(MaterialPageRoute(
+                          builder: (context) => SingleChatScreen(),
+                        ));
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -98,7 +96,7 @@ class ChatScreen extends StatelessWidget {
                                     "Goat Is goat",
                                     //awwff goat is goat, onn poyeda avdnn
                                     style: Theme.of(context)
-                                    //prrrrrrrrrrrr patti show
+                                        //prrrrrrrrrrrr patti show
                                         .textTheme
                                         .displayMedium,
                                   ),
