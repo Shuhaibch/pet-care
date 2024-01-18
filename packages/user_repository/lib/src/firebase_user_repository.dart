@@ -91,8 +91,6 @@ class FirebaseUserRepository implements UserRepository {
       rethrow;
     }
   }
-  
-
 
   @override
   Future<List<MyUser>> getAllUser() async {
@@ -158,17 +156,14 @@ class FirebaseUserRepository implements UserRepository {
       rethrow;
     }
   }
-  
+
   @override
-  Future<void> updateUserDetails(MyUser myUser)async {
+  Future<void> updateUserDetails(MyUser myUser) async {
     try {
-    
       await userCollection.doc(myUser.id).set(myUser.toEntity().toDocument());
     } catch (e) {
       log(e.toString());
       rethrow;
     }
   }
-  
-  
 }

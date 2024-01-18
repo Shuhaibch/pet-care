@@ -37,8 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       //* App Bar
-      appBar: CustomAppBar(
-        height: height,
+      appBar: const CustomAppBar(
         title: 'Feed',
       ),
 
@@ -71,7 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 // log(post.post.postPic.toString());
                 // print(post);
                 Timestamp timestamp = Timestamp(
-                    post.post.postDate.seconds, post.post.postDate.nanoseconds);
+                  post.post.postDate.seconds,
+                  post.post.postDate.nanoseconds,
+                );
 
                 DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(
                   timestamp.seconds * 1000 +

@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/application/bloc/auth_bloc/my_user/myuser_bloc.dart';
@@ -12,8 +14,10 @@ import '../../../../../../app_view.dart';
 import '../../../../../../config/config.dart';
 
 class PersonalizeScreen extends StatefulWidget {
-  const PersonalizeScreen({
+  MyUser myuser;
+  PersonalizeScreen({
     super.key,
+    required this.myuser,
   });
 
   @override
@@ -119,12 +123,19 @@ class _PersonalizeScreenState extends State<PersonalizeScreen> {
                             if (nameCtrl.text.isNotEmpty ||
                                 addressCtrl.text.isNotEmpty) {
                               if (phoneRexExp.hasMatch(phoneCtrl.text)) {
-                                final MyUser updatedMyUser = myUser.copyWith(
-                                    address: addressCtrl.text,
-                                    name: nameCtrl.text,
-                                    phone: int.parse(phoneCtrl.text));
-                                context.read<MyuserBloc>().add(
-                                    UpdateUserDetails(user: updatedMyUser));
+                                final MyUser myuser = widget.myuser.copyWith(
+                                  address: addressCtrl.text,
+                                  name: nameCtrl.text,
+                                  phone: int.parse(phoneCtrl.text),
+                                  email: widget.myuser.email,
+                                  id: widget.myuser.id,
+                                  profilePic: widget.myuser.profilePic,
+                                  userRole: widget.myuser.userRole,
+                                );
+                                log(myuser.toString());
+                                context
+                                    .read<MyuserBloc>()
+                                    .add(UpdateUserDetails(user: myuser));
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(

@@ -21,7 +21,6 @@ String? imageUrl;
 MyUser myUser = MyUser.empty;
 
 class ProfileScreen extends StatefulWidget {
-
   const ProfileScreen({super.key});
 
   @override
@@ -33,6 +32,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void dispose() {
     showBottomNotifier.value = false;
     myUser = MyUser.empty;
+
+    postListNotifier.value = [];
+    reportListNotifier.value = [];
     super.dispose();
   }
 
@@ -41,6 +43,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     myUser = MyUser.empty;
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // postListNotifier.value = [];
+      // reportListNotifier.value = [];
       BlocProvider.of<UserBloc>(context)
           .add(GetUserData(userId: FirebaseAuth.instance.currentUser!.uid));
     });
@@ -72,8 +76,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             builder: (context, state) {
               if (state is GetUserDataSuccess) {
                 myUser = MyUser.empty;
-                postListNotifier.value = [];
-                reportListNotifier.value = [];
                 myUser = state.userDetail;
                 imageUrl = state.userDetail.profilePic;
                 postListNotifier.value = state.userPostList;
@@ -86,6 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: MainProfileTile(
                           height: height,
                           width: width,
+                          myUser: myUser,
                           // postList: _postList,
                           // reportList: _reportList,
                         ),

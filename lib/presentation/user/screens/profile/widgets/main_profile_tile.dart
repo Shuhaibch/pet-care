@@ -8,6 +8,7 @@ import 'package:pet_care/application/bloc/user/user_bloc.dart';
 import 'package:pet_care/presentation/user/screens/profile/post/post_tile.dart';
 import 'package:pet_care/presentation/user/screens/profile/report/report_tile.dart';
 import 'package:pet_care/presentation/user/screens/profile/settings/profile_settings.dart';
+import 'package:user_repository/user_repository.dart';
 
 import '../../../../../app_view.dart';
 import '../../../../../config/config.dart';
@@ -19,13 +20,14 @@ class MainProfileTile extends StatelessWidget implements PreferredSizeWidget {
   const MainProfileTile({
     super.key,
     required this.height,
-    required this.width,
+    required this.width, required this.myUser,
     // required this.postList,
     // required this.reportList,
   });
 
   final double height;
   final double width;
+  final MyUser myUser;
   // final List<Post> postList;
   // final List<Report> reportList;
 
@@ -45,7 +47,7 @@ class MainProfileTile extends StatelessWidget implements PreferredSizeWidget {
           InkWell(
             onTap: () {
               navigatorKey.currentState?.push(MaterialPageRoute(
-                builder: (context) => const ProfileSettingsScreen(),
+                builder: (context) =>  ProfileSettingsScreen(myuser: myUser),
               ));
             },
             child: Container(

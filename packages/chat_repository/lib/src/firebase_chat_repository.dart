@@ -1,22 +1,22 @@
 import 'dart:developer';
 
 import 'package:chat_repository/src/chat_repo.dart';
-import 'package:chat_repository/src/entity/chat_entity.dart';
 import 'package:chat_repository/src/model/chat_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseChatRepository extends ChatRepository {
   final chatCollection = FirebaseFirestore.instance.collection('message');
   @override
-  Future<List<ChatMessage>> getMessage(String senderId) async {
+  Stream<QuerySnapshot> getMessage(String senderId, String receiverId) {
+    List<String> id = [senderId, receiverId];
+    id.sort();
+    final String chatroomId = id.join('_');
     try {
-      return await chatCollection
-          .where('senderId', isEqualTo: senderId)
-          .get()
-          .then((value) => value.docs
-              .map((e) => ChatMessage.fromEntity(
-                  ChatMessageEntity.fromDocument(e.data())))
-              .toList());
+      return chatCollection
+          .doc(chatroomId)
+          .collection('messages')
+          .orderBy('chatTime', descending: false)
+          .snapshots();
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -25,8 +25,14 @@ class FirebaseChatRepository extends ChatRepository {
 
   @override
   Future sendMessage(ChatMessage message) async {
+    List<String> id = [message.senderId, message.receiverId];
+    id.sort();
+    final String chatroomId = id.join('_');
     try {
-      await chatCollection.doc().set(message.toEntity().toDocument());
+      await chatCollection
+          .doc(chatroomId)
+          .collection('messages')
+          .add(message.toEntity().toDocument());
     } catch (e) {
       log(e.toString());
       rethrow;

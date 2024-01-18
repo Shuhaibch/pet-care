@@ -5,12 +5,16 @@ import 'package:pet_care/application/bloc/auth_bloc/sign_in/sign_in_bloc.dart';
 import 'package:pet_care/presentation/auth/log_in.dart';
 import 'package:pet_care/presentation/user/screens/profile/settings/widgets/personalize.dart';
 import 'package:pet_care/presentation/user/screens/profile/widgets/tile.dart';
+import 'package:user_repository/user_repository.dart';
+
+import '../../../widgets/widget.dart';
 
 class ProfileSettingsScreen extends StatelessWidget {
   const ProfileSettingsScreen({
     super.key,
+    required this.myuser,
   });
-
+  final MyUser myuser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +39,7 @@ class ProfileSettingsScreen extends StatelessWidget {
         children: [
           InkWell(
             onTap: () => navigatorKey.currentState!.push(MaterialPageRoute(
-              builder: (context) => const PersonalizeScreen(),
+              builder: (context) => PersonalizeScreen(myuser: myuser),
             )),
             child: const ProfileTile(
               subTitle: 'Name, Address',
@@ -51,6 +55,7 @@ class ProfileSettingsScreen extends StatelessWidget {
           InkWell(
             onTap: () {
               context.read<SignInBloc>().add(SignOutRequired());
+              indexChangeNotifier.value = 0;
               navigatorKey.currentState?.pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => const LoginScreen(),

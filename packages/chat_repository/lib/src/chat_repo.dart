@@ -1,6 +1,7 @@
 import 'package:chat_repository/chat_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class ChatRepository {
   Future sendMessage(ChatMessage message);
-  Future <List<ChatMessage>> getMessage(String senderId);
+  Stream <QuerySnapshot> getMessage(String senderId, String receiverId);
 }

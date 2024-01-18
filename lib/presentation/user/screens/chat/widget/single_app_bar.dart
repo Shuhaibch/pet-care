@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care/config/config.dart';
+import 'package:user_repository/user_repository.dart';
 
+import '../../../../../app_view.dart';
 import 'profile_widget.dart';
 
 class SingleChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String imageUrl =
       'https://imgs.search.brave.com/cb4ekmNNh1Ynv3bIRlnc7-z-HPHvqXwU3m4plVS50qc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cmQuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIxLzAzL0dl/dHR5SW1hZ2VzLTEz/NTE1NzgyOC5qcGc';
-
-  final double height;
-  final String title;
+  final MyUser user;
   SingleChatAppBar({
-    super.key,
-    required this.height,
-    required this.title,
+    super.key, required this.user,
   });
   final List<String> catagories = [
     'Contact',
@@ -32,11 +30,11 @@ class SingleChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           ProfilePicture(
             width: width * .11,
             height: height * .13,
-            imageUrl: imageUrl,
+            imageUrl: user.profilePic??"",
           ),
           kwidth10,
           Text(
-            title,
+            user.name,
             style: Theme.of(context).textTheme.displayMedium,
             // textAlign: TextAlign.left,
           ),

@@ -32,7 +32,7 @@ class SplashScreen extends StatelessWidget {
             child: ADMainScreen(),
           );
         } else if (state.users!.userRole == 'User') {
-          indexChangeNotifier.value = 0;
+          // indexChangeNotifier.value = 0;
           return MainScreen();
         } else if (state.users!.userRole == 'Forest') {
           return const VeterinaryHomeScreen(title: "Forest");

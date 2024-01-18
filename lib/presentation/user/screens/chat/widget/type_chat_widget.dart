@@ -1,13 +1,22 @@
+import 'package:chat_repository/chat_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pet_care/app_view.dart';
+import 'package:pet_care/application/bloc/chat/chat_bloc.dart';
 import 'package:pet_care/config/width.dart';
+import 'package:user_repository/user_repository.dart';
 
 class TypeChatWidget extends StatelessWidget {
   const TypeChatWidget({
     super.key,
+    required this.receiverUser,
   });
-
+  final MyUser receiverUser;
   @override
   Widget build(BuildContext context) {
+    TextEditingController chat = TextEditingController();
     return Align(
       alignment: Alignment.bottomLeft,
       child: Container(
@@ -21,6 +30,7 @@ class TypeChatWidget extends StatelessWidget {
             kwidth10,
             Expanded(
               child: TextField(
+                controller: chat,
                 textAlign:
                     TextAlign.left, // Aligns text horizontally to the center
                 textAlignVertical: TextAlignVertical.bottom,
@@ -63,7 +73,20 @@ class TypeChatWidget extends StatelessWidget {
             ),
             kwidth10,
             FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                final ChatMessage chatMessage = ChatMessage(
+                  chatId: '',
+                  senderId: FirebaseAuth.instance.currentUser!.uid,
+                  receiverId: receiverUser.id,
+                  content: chat.text,
+                  chatTime: Timestamp.now(),
+                );
+                if (chat.text.isNotEmpty) {
+                  context
+                      .read<ChatBloc>()
+                      .add(SendChat(chatMessage: chatMessage));
+                }
+              },
               backgroundColor: Colors.blue[200],
               elevation: 0,
               child: const Icon(

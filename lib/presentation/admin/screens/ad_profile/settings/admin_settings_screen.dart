@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/presentation/admin/screens/ad_profile/settings/widgets/admin_personalize_screen.dart';
@@ -7,6 +9,8 @@ import '../../../../../application/bloc/auth_bloc/sign_in/sign_in_bloc.dart';
 import '../../../../../application/bloc/user/user_bloc.dart';
 import '../../../../auth/log_in.dart';
 import '../../../../user/screens/profile/widgets/widget.dart';
+import '../../../../user/widgets/widget.dart';
+import '../../../widgets/ad_custom_nav_bar.dart';
 
 class AdminProfileSettingsScreen extends StatelessWidget {
   const AdminProfileSettingsScreen({
@@ -37,7 +41,7 @@ class AdminProfileSettingsScreen extends StatelessWidget {
         children: [
           InkWell(
             onTap: () => navigatorKey.currentState!.push(MaterialPageRoute(
-              builder: (context) =>  BlocProvider.value(
+              builder: (context) => BlocProvider.value(
                 value: BlocProvider.of<UserBloc>(context),
                 child: const AdminPersonalizeScreen(),
               ),
@@ -55,10 +59,10 @@ class AdminProfileSettingsScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-             
-
               context.read<SignInBloc>().add(SignOutRequired());
-               navigatorKey.currentState?.pushAndRemoveUntil(
+              adIndexChangeNotifier.value = 0;
+              indexChangeNotifier.value = 0;
+              navigatorKey.currentState?.pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => const LoginScreen(),
                 ),

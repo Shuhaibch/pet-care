@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:report_repository/report_repository.dart';
 
-class FirebaseReportRepository extends ReportRepository {
+class FirebaseReportRepository implements ReportRepository {
   final reportCollection = FirebaseFirestore.instance.collection("report");
   List<Report> reportList = [];
   List<Report> allReportList = [];

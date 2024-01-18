@@ -2,23 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:pet_care/models/chats.dart';
 
 // ignore: must_be_immutable
-class MessageUi extends StatelessWidget {
-  List<ChatMessage> messages = [
-    ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-    ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Hey Kriss, I am doing fine dude. wbu?",
-        messageType: "sender"),
-    ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
-  ];
+class MessageUi extends StatefulWidget {
+
   MessageUi({
     super.key,
     required this.height,
   });
 
   final double height;
+
+  @override
+  State<MessageUi> createState() => _MessageUiState();
+}
+
+class _MessageUiState extends State<MessageUi> {
+  List<ChatMessageDummy> messages = [
+    ChatMessageDummy(messageContent: "Hello, Will", messageType: "receiver"),
+    ChatMessageDummy(messageContent: "How have you been?", messageType: "receiver"),
+    ChatMessageDummy(
+        messageContent: "Hey Kriss, I am doing fine dude. wbu?",
+        messageType: "sender"),
+    ChatMessageDummy(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+    ChatMessageDummy(
+        messageContent: "Is there any thing wrong?", messageType: "sender"),
+  ];
 
   @override
   Widget build(BuildContext context) {

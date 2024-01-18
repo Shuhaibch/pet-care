@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:pet_care/app_view.dart';
 import 'package:pet_care/config/config.dart';
 
 import '../../widgets/widget.dart';
+import 'new_chat/new_chat_screen.dart';
 import 'widget/widgets.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -35,12 +36,14 @@ class _ChatScreenState extends State<ChatScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        child: Icon(Icons.message_outlined),
-        onPressed: () {},
+        child: const Icon(Icons.message_outlined),
+        onPressed: () {
+          navigatorKey.currentState!.push(MaterialPageRoute(
+            builder: (context) => const NewChatScreen(),
+          ));
+        },
       ),
-      appBar: CustomAppBar(
-        //Nk bore adichund appo nganokke ndavym
-        height: height,
+      appBar: const CustomAppBar(
         title: 'Chats',
       ),
       body: Padding(
@@ -67,7 +70,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: InkWell(
                       onTap: () {
                         navigatorKey.currentState!.push(MaterialPageRoute(
-                          builder: (context) => SingleChatScreen(),
+                          builder: (context) => const SingleChatScreen(recieverUser: null, chatList: []),
                         ));
                       },
                       child: Padding(

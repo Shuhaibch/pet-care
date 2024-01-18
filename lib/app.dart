@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'package:chat_repository/chat_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/app_view.dart';
@@ -13,13 +14,15 @@ import 'application/bloc/auth_bloc/authentication/authentication_bloc.dart';
 import 'application/bloc/auth_bloc/my_user/myuser_bloc.dart';
 import 'application/bloc/auth_bloc/sign_in/sign_in_bloc.dart';
 import 'application/bloc/auth_bloc/sign_up/sign_up_bloc.dart';
+import 'application/bloc/chat/chat_bloc.dart';
 
 class MyApp extends StatelessWidget {
   final UserRepository userRepository;
   final PostRepo postRepo;
   final ReportRepository reportRepository;
+  final ChatRepository chatRepository;
   const MyApp(this.postRepo, this.userRepository, this.reportRepository,
-      {super.key});
+      {super.key, required this.chatRepository});
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +56,13 @@ class MyApp extends StatelessWidget {
           ),
         ),
         BlocProvider(
+                  create: (context) => ChatBloc(
+                    chatRepository:chatRepository ,
+                    userRepository:
+                        context.read<AuthenticationBloc>().userRepository,
+                  ),
+                ),
+        BlocProvider(
           create: (context) => PostBloc(
             postRepo: postRepo,
             userRepository: context.read<AuthenticationBloc>().userRepository,
@@ -63,7 +73,11 @@ class MyApp extends StatelessWidget {
                 userRepository:
                     context.read<AuthenticationBloc>().userRepository)),
       ],
-      child: MyAppView(postRepo: postRepo, reportRepository: reportRepository),
+      child: MyAppView(
+        postRepo: postRepo,
+        reportRepository: reportRepository,
+        chatRepository: chatRepository,
+      ),
     );
   }
 }

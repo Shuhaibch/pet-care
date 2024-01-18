@@ -1,7 +1,7 @@
-class ChatMessage {
+class ChatMessageDummy {
   String messageContent;
   String messageType;
-  ChatMessage({
+  ChatMessageDummy({
     required this.messageContent,
     required this.messageType,
   });
