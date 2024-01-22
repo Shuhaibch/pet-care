@@ -51,11 +51,11 @@ class SendChatLoading extends ChatState {
 
 //* Get Chat
 class GetChatSuccess extends ChatState {
-  final List<ChatMessage> chatList;
+  final Stream<QuerySnapshot<Object?>> snapshot;
 
-  const GetChatSuccess({required this.chatList});
+  const GetChatSuccess(this.snapshot);
   @override
-  List<Object> get props => [chatList];
+  List<Object> get props => [snapshot];
 }
 
 class GetChatFailed extends ChatState {

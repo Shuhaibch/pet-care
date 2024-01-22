@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:chat_repository/chat_repository.dart';
@@ -33,6 +34,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         emit(const SendChatSuccess());
       } catch (e) {
         emit(const SendChatFailed());
+      }
+    });
+    on<GetChat>((event, emit) async {
+      emit(const GetChatLoading());
+      try {
+        var snapshot =
+            _chatRepository.getMessage(event.senderId, event.recieverId);
+        emit(GetChatSuccess(snapshot));
+      } catch (e) {
+        emit(const GetChatFailed());
       }
     });
   }

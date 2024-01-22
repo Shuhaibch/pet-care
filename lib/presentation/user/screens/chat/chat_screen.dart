@@ -30,7 +30,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    //neech podaaa
+   
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -57,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
               child: ListView.separated(
                 itemBuilder: (context, index) {
                   return Container(
-                    width: width, //korch flutter arinjuchtt oru kaaryulla
+                    width: width,
                     height: height * .105,
                     decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(.25),
@@ -97,7 +97,6 @@ class _ChatScreenState extends State<ChatScreen> {
                                 children: [
                                   Text(
                                     "Goat Is goat",
-                                    //awwff goat is goat, onn poyeda avdnn
                                     style: Theme.of(context)
                                         //prrrrrrrrrrrr patti show
                                         .textTheme

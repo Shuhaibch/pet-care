@@ -205,7 +205,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               validator: (val) {
                                 if (val!.isEmpty) {
                                   return 'Please Fill the Feild';
-                                } else if (!emailRexExp.hasMatch(val)) {
+                                } else if (val!=passWordCtrl.text) {
                                   return 'Please Enter a Valid Password';
                                 }
                                 return null;

@@ -21,9 +21,11 @@ class SendChat extends ChatEvent {
 }
 
 class GetChat extends ChatEvent {
-  final String usersIds;
+  final String senderId;
+  final String recieverId;
 
-  const GetChat({required this.usersIds});
+
+  const GetChat(this.senderId, this.recieverId,);
   @override
-  List<Object> get props => [usersIds];
+  List<Object> get props => [senderId,recieverId];
 }
