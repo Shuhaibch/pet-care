@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/app_view.dart';
 import 'package:pet_care/application/bloc/user/user_bloc.dart';
+import 'package:pet_care/presentation/user/screens/chat/widget/single_chat_screen.dart';
 import 'package:post_repository/post_repository.dart';
 
 import '../../../../../config/config.dart';
@@ -35,7 +36,8 @@ class _SinglePostState extends State<SinglePost> {
   void initState() {
     super.initState();
     like = widget.post.post.like!;
-    isLiked = widget.post.post.like!.contains(FirebaseAuth.instance.currentUser!.uid);
+    isLiked =
+        widget.post.post.like!.contains(FirebaseAuth.instance.currentUser!.uid);
   }
 
   void toggleLike() {
@@ -155,7 +157,14 @@ class _SinglePostState extends State<SinglePost> {
                 Text(like.length.toString(),
                     style: Theme.of(context).textTheme.displaySmall),
                 kwidth20,
-                const Icon(Icons.mode_comment_outlined)
+                InkWell(
+                    onTap: () {
+                      navigatorKey.currentState!.push(MaterialPageRoute(
+                        builder: (context) =>
+                            SingleChatScreen(recieverUser: widget.post.user),
+                      ));
+                    },
+                    child: const Icon(Icons.message_outlined))
               ],
             ),
           )

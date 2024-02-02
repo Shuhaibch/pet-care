@@ -18,10 +18,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   })  : _chatRepository = chatRepository,
         _userRepository = userRepository,
         super(ChatInitial()) {
+    List<MyUser> userList = [];
+    List<MyUser> userSeachList = [];
+
     on<NewChatGetAllUser>((event, emit) async {
       emit(const NewChatGetallUserLoading());
       try {
-        final List<MyUser> userList = await _userRepository.getAllUser();
+        userList = await _userRepository.getAllUser();
         emit(NewChatGetallUserSuccess(userList: userList));
       } catch (e) {
         log(e.toString());
@@ -39,12 +42,37 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<GetChat>((event, emit) async {
       emit(const GetChatLoading());
       try {
-        var snapshot =
-            _chatRepository.getMessage(event.senderId, event.recieverId);
-        emit(GetChatSuccess(snapshot));
+        // var snapshot =
+        //     _chatRepository.getMessage(event.senderId, event.recieverId);
+        // snapshot.
+        // emit(GetChatSuccess(snapshot));
       } catch (e) {
         emit(const GetChatFailed());
       }
+    });
+    on<GetAllUserChat>((event, emit) async {
+      emit(const GetUserChatLoading());
+      try {
+        final List<ChatMessage> messageList =
+            await _chatRepository.getUserChat(event.userId);
+        emit(GetUserChatSuccess(messageList));
+      } catch (e) {
+        log(e.toString());
+        emit(const GetUserChatFailed());
+      }
+    });
+
+    //* chat search User
+    on<SearchUser>((event, emit) {
+      userSeachList = [];
+
+      for (var element in userList) {
+        if (element.name.contains(event.chatUserSearch)) {
+          userSeachList.add(element);
+        }
+      }
+
+      emit(ChatSearchUserSuccess(userSeachList));
     });
   }
 }

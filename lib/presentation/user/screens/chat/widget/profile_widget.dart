@@ -26,7 +26,7 @@ class ProfilePicture extends StatelessWidget {
         imageBuilder: (context, imageProvider) => Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            image: DecorationImage(    
+            image: DecorationImage(
               image: imageProvider,
               fit: BoxFit.cover,
             ),
@@ -39,11 +39,12 @@ class ProfilePicture extends StatelessWidget {
             child: CircularProgressIndicator(
               color: Color.fromARGB(255, 100, 6, 6),
             ),
-                //RectangularUdayppIndicator
+            //RectangularUdayppIndicator
           ),
         ),
         errorWidget: (context, url, error) => const Icon(
-          Icons.error,
+          Icons.person,
+          color: Colors.grey,
           size: 50,
         ),
       ),

@@ -5,12 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pet_care/app_view.dart';
 import 'package:pet_care/models/all_report.dart';
+import 'package:pet_care/presentation/officers/office_chat/office_chat_screen.dart';
 import 'package:pet_care/presentation/officers/office_profile/office_profle_screen.dart';
 import 'package:pet_care/presentation/user/widgets/office_single_report.dart';
 import 'package:user_repository/user_repository.dart';
 
 import '../../../application/bloc/report/report_bloc.dart';
 import '../../admin/screens/ad_report/widgets/single_report_screen.dart';
+import '../../user/screens/chat/new_chat/new_chat_screen.dart';
 
 class VeterinaryHomeScreen extends StatelessWidget {
   const VeterinaryHomeScreen({
@@ -47,6 +49,20 @@ class VeterinaryHomeScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.displayMedium,
         ),
         actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: InkWell(
+              onTap: () {
+                navigatorKey.currentState!.push(MaterialPageRoute(
+                  builder: (context) => const OfficeChatScreen(),
+                ));
+              },
+              child: const Icon(
+                Icons.message,
+                color: Colors.white,
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: InkWell(

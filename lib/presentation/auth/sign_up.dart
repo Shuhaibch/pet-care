@@ -308,19 +308,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    width: width * .15,
-                                    height: height * .035,
-                                    decoration: const BoxDecoration(
-                                      // color: Colors.amber,
-                                      image: DecorationImage(
-                                        // fit: BoxFit.cover,
-                                        image: AssetImage(
-                                          'assets/images/google.png',
+                                  InkWell(
+                                    onTap: () {
+                                    //  context.read<SignUpBloc>().add(
+                                    //            SignInWithGoogle());
+                                    },
+                                    child: Container(
+                                      width: width * .15,
+                                      height: height * .035,
+                                      decoration: const BoxDecoration(
+                                        // color: Colors.amber,
+                                        image: DecorationImage(
+                                          // fit: BoxFit.cover,
+                                          image: AssetImage(
+                                            'assets/images/google.png',
+                                          ),
                                         ),
                                       ),
+                                      alignment: Alignment.topCenter,
                                     ),
-                                    alignment: Alignment.topCenter,
                                   ),
                                   Text(
                                     "Sign Up With Google",

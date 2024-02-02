@@ -1,14 +1,16 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pet_care/presentation/user/screens/chat/widget/new_chat_list.dart';
 import 'package:user_repository/user_repository.dart';
-import '../../../../../application/bloc/chat/chat_bloc.dart';
-import '../../../widgets/widget.dart';
-import '../widget/widgets.dart';
 
-class NewChatScreen extends StatelessWidget {
-  const NewChatScreen({super.key});
+import '../../../application/bloc/chat/chat_bloc.dart';
+import '../../user/widgets/widget.dart';
+
+class OfficeChatScreen extends StatelessWidget {
+  const OfficeChatScreen({super.key});
   final String imageUrl =
       'https://imgs.search.brave.com/cb4ekmNNh1Ynv3bIRlnc7-z-HPHvqXwU3m4plVS50qc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cmQuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIxLzAzL0dl/dHR5SW1hZ2VzLTEz/NTE1NzgyOC5qcGc';
 

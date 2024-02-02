@@ -4,6 +4,7 @@ import 'package:chat_repository/chat_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_care/app_view.dart';
+import 'package:pet_care/application/bloc/auth_bloc/google_auth_bloc/google_auth_bloc.dart';
 import 'package:pet_care/application/bloc/post/post_bloc.dart';
 import 'package:pet_care/application/bloc/report/report_bloc.dart';
 import 'package:pet_care/application/bloc/user/user_bloc.dart';
@@ -42,6 +43,11 @@ class MyApp extends StatelessWidget {
                   userRepository:
                       context.read<AuthenticationBloc>().userRepository,
                 )),
+         BlocProvider(
+            create: (context) => GoogleAuthBloc(
+                  userRepository:
+                      context.read<AuthenticationBloc>().userRepository,
+                )),        
         BlocProvider(
           create: (context) => UserBloc(
             userRepository: context.read<AuthenticationBloc>().userRepository,

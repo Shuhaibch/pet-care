@@ -32,8 +32,9 @@ class ProfileCard extends StatelessWidget {
         ),
       ),
       errorWidget: (context, url, error) => const Icon(
-        Icons.error,
-        size: 50,
+        Icons.person,
+        color: Colors.grey,
+        size: 45,
       ),
     );
   }

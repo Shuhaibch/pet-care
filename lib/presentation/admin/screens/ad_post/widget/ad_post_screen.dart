@@ -29,14 +29,14 @@ class ADSinglePost extends StatefulWidget {
 }
 
 class _ADSinglePostState extends State<ADSinglePost> {
-  bool isLiked = false;
-  List like = [];
+  // bool isLiked = false;
+  // List like = [];
   @override
-  void initState() {
-    super.initState();
-    like = widget.post.post.like!;
-    isLiked = widget.post.post.like!.contains(user!.uid);
-  }
+  // void initState() {
+  //   super.initState();
+  //   like = widget.post.post.like!;
+  //   isLiked = widget.post.post.like!.contains(user!.uid);
+  // }
 
   @override
   Widget build(BuildContext context) {

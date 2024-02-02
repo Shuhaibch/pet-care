@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_care/app_view.dart';
 import 'package:pet_care/application/bloc/chat/chat_bloc.dart';
 import 'package:pet_care/config/width.dart';
 import 'package:user_repository/user_repository.dart';
@@ -72,27 +71,35 @@ class TypeChatWidget extends StatelessWidget {
               ),
             ),
             kwidth10,
-            FloatingActionButton(
-              onPressed: () {
-                final ChatMessage chatMessage = ChatMessage(
-                  chatId: '',
-                  senderId: FirebaseAuth.instance.currentUser!.uid,
-                  receiverId: receiverUser.id,
-                  content: chat.text,
-                  chatTime: Timestamp.now(),
-                );
-                if (chat.text.isNotEmpty) {
-                  context
-                      .read<ChatBloc>()
-                      .add(SendChat(chatMessage: chatMessage));
-                }
+            BlocListener<ChatBloc, ChatState>(
+              listener: (context, state) {
+                // if (state is SendChatSuccess) {
+                // chat.clear();
+                // }
               },
-              backgroundColor: Colors.blue[200],
-              elevation: 0,
-              child: const Icon(
-                Icons.send,
-                color: Colors.black,
-                size: 20,
+              child: FloatingActionButton(
+                onPressed: () {
+                  final ChatMessage chatMessage = ChatMessage(
+                    chatId: '',
+                    senderId: FirebaseAuth.instance.currentUser!.uid,
+                    receiverId: receiverUser.id,
+                    content: chat.text,
+                    chatTime: Timestamp.now(),
+                  );
+                  if (chat.text.isNotEmpty) {
+                    context
+                        .read<ChatBloc>()
+                        .add(SendChat(chatMessage: chatMessage));
+                    chat.clear();
+                  }
+                },
+                backgroundColor: Colors.blue[200],
+                elevation: 0,
+                child: const Icon(
+                  Icons.send,
+                  color: Colors.black,
+                  size: 20,
+                ),
               ),
             ),
           ],

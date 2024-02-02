@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care/presentation/user/screens/screen.dart';
 import '../widgets/widget.dart';
+import 'chat/new_chat/new_chat_screen.dart';
 
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   final _pages = [
     const HomeScreen(),
-    const ChatScreen(),
+    const NewChatScreen(),
     const AddScreen(),
     const ReportScreen(),
     const ProfileScreen()

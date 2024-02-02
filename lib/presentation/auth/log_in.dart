@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_care/app_view.dart';
+import 'package:pet_care/application/bloc/auth_bloc/google_auth_bloc/google_auth_bloc.dart';
 import 'package:pet_care/application/bloc/auth_bloc/my_user_bloc/my_users_bloc.dart';
 import 'package:pet_care/presentation/auth/sign_up.dart';
 import 'package:pet_care/presentation/splash/splash_screen.dart';
@@ -260,31 +261,40 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 25.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: width * .15,
-                                  height: height * .035,
-                                  decoration: const BoxDecoration(
-                                    // color: Colors.amber,
-                                    image: DecorationImage(
-                                      // fit: BoxFit.cover,
-                                      image: AssetImage(
-                                        'assets/images/google.png',
+                          InkWell(
+                            onTap: () {
+                              context
+                                  .read<GoogleAuthBloc>()
+                                  .add(GoogleSignInRequired());
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: width * .15,
+                                    height: height * .035,
+                                    decoration: const BoxDecoration(
+                                      // color: Colors.amber,
+                                      image: DecorationImage(
+                                        // fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          'assets/images/google.png',
+                                        ),
                                       ),
                                     ),
+                                    alignment: Alignment.topCenter,
                                   ),
-                                  alignment: Alignment.topCenter,
-                                ),
-                                Text(
-                                  "Log in With Google",
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall,
-                                )
-                              ],
+                                  Text(
+                                    "Log in With Google",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],

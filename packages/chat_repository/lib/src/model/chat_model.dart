@@ -72,7 +72,17 @@ class ChatMessage extends Equatable {
       chatTime: entity.chatTime,
     );
   }
+ factory ChatMessage.fromDocumentSnapshot(QueryDocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
+    return ChatMessage(
+      chatId: data['chatId']??'',
+      senderId: data['senderId'] ?? '',
+      receiverId: data['receiverId'] ?? '',
+      content: data['content'] ?? '',
+      chatTime: data['chatTime'] ?? Timestamp.now(),
+    );
+  }
   @override
   List<Object?> get props => [
         chatId,

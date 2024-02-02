@@ -51,7 +51,7 @@ class SendChatLoading extends ChatState {
 
 //* Get Chat
 class GetChatSuccess extends ChatState {
-  final Stream<QuerySnapshot<Object?>> snapshot;
+  final DocumentSnapshot snapshot;
 
   const GetChatSuccess(this.snapshot);
   @override
@@ -66,6 +66,46 @@ class GetChatFailed extends ChatState {
 
 class GetChatLoading extends ChatState {
   const GetChatLoading();
+  @override
+  List<Object> get props => [];
+}
+//* Get User Chat
+class GetUserChatSuccess extends ChatState {
+  final List<ChatMessage> messageList;
+
+  const GetUserChatSuccess(this.messageList);
+  @override
+  List<Object> get props => [messageList];
+}
+
+class GetUserChatFailed extends ChatState {
+  const GetUserChatFailed();
+  @override
+  List<Object> get props => [];
+}
+
+class GetUserChatLoading extends ChatState {
+  const GetUserChatLoading();
+  @override
+  List<Object> get props => [];
+}
+//* chat search user
+class ChatSearchUserSuccess extends ChatState {
+  final List<MyUser> userList;
+
+  const ChatSearchUserSuccess(this.userList);
+  @override
+  List<Object> get props => [userList];
+}
+
+class ChatSearchUserFailed extends ChatState {
+  const ChatSearchUserFailed();
+  @override
+  List<Object> get props => [];
+}
+
+class ChatSearchUserLoading extends ChatState {
+  const ChatSearchUserLoading();
   @override
   List<Object> get props => [];
 }

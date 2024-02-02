@@ -1,3 +1,4 @@
+import 'package:chat_repository/chat_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/presentation/user/screens/chat/widget/widgets.dart';
 import 'package:user_repository/user_repository.dart';
@@ -5,12 +6,12 @@ import 'package:user_repository/user_repository.dart';
 import '../../../../../app_view.dart';
 import '../../../../../config/config.dart';
 
-class NewChatList extends StatelessWidget {
-  const NewChatList({
+class UserChatList extends StatelessWidget {
+  const UserChatList({
     super.key,
-    required this.userList,
+    required this.chatList,
   });
-  final List<MyUser>? userList;
+  final List<ChatMessage>? chatList;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class NewChatList extends StatelessWidget {
           Expanded(
             child: ListView.separated(
               itemBuilder: (context, index) {
-                final MyUser recieverUser = userList![index];
+                final ChatMessage recieverUser = chatList![index];
                 return Container(
                   width: width,
                   height: height * .105,
@@ -39,8 +40,7 @@ class NewChatList extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       navigatorKey.currentState!.push(MaterialPageRoute(
-                        builder: (context) =>
-                            SingleChatScreen(recieverUser: recieverUser),
+                        builder: (context) => SingleChatScreen(recieverUser: MyUser.empty),
                       ));
                     },
                     child: Padding(
@@ -53,7 +53,7 @@ class NewChatList extends StatelessWidget {
                           ProfilePicture(
                             width: width * .17,
                             height: height * .08,
-                            imageUrl: recieverUser.profilePic ?? "",
+                            imageUrl: 'recieverUser.profilePic ??' "",
                           ),
                           kwidth20,
 
@@ -65,12 +65,12 @@ class NewChatList extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  recieverUser.name,
+                                  'recieverUser.name',
                                   style:
                                       Theme.of(context).textTheme.displayMedium,
                                 ),
                                 Text(
-                                  recieverUser.userRole,
+                                  'recieverUser.userRole',
                                   style:
                                       Theme.of(context).textTheme.displaySmall,
                                   overflow: TextOverflow.ellipsis,
@@ -97,7 +97,7 @@ class NewChatList extends StatelessWidget {
                 height: height * .004,
                 // color: Colors.grey[700],
               ),
-              itemCount: userList!.isEmpty ? 10 : userList!.length,
+              itemCount: chatList!.isEmpty ? 0 : chatList!.length,
             ),
           )
         ],
