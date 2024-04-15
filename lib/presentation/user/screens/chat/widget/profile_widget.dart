@@ -5,7 +5,6 @@ class ProfilePicture extends StatelessWidget {
   const ProfilePicture({
     super.key,
     required this.width,
-    //On vallye programmer ppo prrrrrr
     required this.height,
     required this.imageUrl,
   });
@@ -18,11 +17,9 @@ class ProfilePicture extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      //Show korchondu
       height: height,
       child: CachedNetworkImage(
         imageUrl: imageUrl,
-        // Poda serkka
         imageBuilder: (context, imageProvider) => Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
@@ -39,7 +36,6 @@ class ProfilePicture extends StatelessWidget {
             child: CircularProgressIndicator(
               color: Color.fromARGB(255, 100, 6, 6),
             ),
-            //RectangularUdayppIndicator
           ),
         ),
         errorWidget: (context, url, error) => const Icon(

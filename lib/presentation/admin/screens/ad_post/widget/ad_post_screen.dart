@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_care/app_view.dart';
 import 'package:pet_care/presentation/user/screens/home/widget/profile_row.dart';
 
 import '../../../../../application/bloc/post/post_bloc.dart';

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +6,6 @@ import 'package:pet_care/app_view.dart';
 import 'package:pet_care/models/all_post.dart';
 
 import '../../../../application/bloc/post/post_bloc.dart';
-import '../../../user/screens/home/widget/widget.dart';
 import 'widget/ad_post_screen.dart';
 
 class ADPostScreen extends StatelessWidget {
@@ -50,7 +47,7 @@ class ADPostScreen extends StatelessWidget {
                           Timestamp timestamp = Timestamp(
                             post.post.postDate.seconds,
                             post.post.postDate.nanoseconds,
-                          );
+                          ); 
 
                           DateTime dateTime =
                               DateTime.fromMillisecondsSinceEpoch(
@@ -66,7 +63,7 @@ class ADPostScreen extends StatelessWidget {
                               height: height,
                               width: width,
                               post: post,
-                              formattedDate: formattedDate);
+                              formattedDate: formattedDate,);
                         },
                       );
               } else if (state is GetAllPostFailed) {

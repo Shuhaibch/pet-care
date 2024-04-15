@@ -9,7 +9,6 @@ import 'package:post_repository/post_repository.dart';
 import 'package:report_repository/report_repository.dart';
 
 import '../../application/bloc/auth_bloc/my_user_bloc/my_users_bloc.dart';
-import '../user/widgets/widget.dart';
 
 class SplashScreen extends StatelessWidget {
   final ReportRepository reportRepository = FirebaseReportRepository();

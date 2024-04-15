@@ -25,7 +25,7 @@ class UserChatList extends StatelessWidget {
           Expanded(
             child: ListView.separated(
               itemBuilder: (context, index) {
-                final ChatMessage recieverUser = chatList![index];
+                // final ChatMessage recieverUser = chatList![index];
                 return Container(
                   width: width,
                   height: height * .105,

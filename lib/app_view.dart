@@ -9,7 +9,6 @@ import 'package:post_repository/post_repository.dart';
 import 'package:report_repository/report_repository.dart';
 
 import 'package:pet_care/application/bloc/auth_bloc/my_user_bloc/my_users_bloc.dart';
-import 'package:pet_care/application/bloc/chat/chat_bloc.dart';
 import 'package:pet_care/config/theme.dart';
 import 'package:pet_care/presentation/splash/splash_screen.dart';
 

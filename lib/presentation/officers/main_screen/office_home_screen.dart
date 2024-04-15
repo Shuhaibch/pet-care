@@ -12,8 +12,6 @@ import 'package:user_repository/user_repository.dart';
 
 import '../../../application/bloc/report/report_bloc.dart';
 import '../../admin/screens/ad_report/widgets/single_report_screen.dart';
-import '../../user/screens/chat/new_chat/new_chat_screen.dart';
-
 class VeterinaryHomeScreen extends StatelessWidget {
   const VeterinaryHomeScreen({
     super.key,
